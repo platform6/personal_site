@@ -1,0 +1,7 @@
+hex 504c38
+
+hex efcfc2
+
+
+garrett - font Six Caps
+automation - font Quicksand
