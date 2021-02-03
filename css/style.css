@@ -128,11 +128,18 @@ img{
 }
 
 .welcome-container h1 {
-  color: var(--main-pink);
+  color: var(--main-white);
+  font-weight: bold;
+  font-size: 100px;
+  -webkit-text-stroke-width: 2px;
+  -webkit-text-stroke-color: var(--main-brown);
 }
 
 .welcome-container p {
-  color: var(--main-pink);
+  color: var(--main-white);
+  font-size: 50px;
+  -webkit-text-stroke-width: 2px;
+  -webkit-text-stroke-color: var(--main-brown);
 }
 
 .welcome-container video {
@@ -140,11 +147,13 @@ img{
     display: block;
     z-index:0;
     width: 100%;
+    object-fit: initial;
+    height: 800px;
 }
 
 .overlay {
     position: absolute;
-    top:5em;
+    bottom:5em;
     left:5em;
     z-index:1;
 }
