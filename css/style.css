@@ -118,50 +118,32 @@ img{
 }
 
 .welcome-section {
-  /* width: 100%;
-  height: 100%; */
+  width: 100%;
+  height: 100%;
+  background-color: var(--main-brown);
+  color: var(--main-white);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 500px;
+  
   }
 
-.welcome-container {
-  position: relative;
+  .welcome-section h1 {
 
-}
+  }
+  .welcome-section p {
 
-.welcome-container h1 {
-  color: var(--main-white);
-  font-weight: bold;
-  font-size: 100px;
-  -webkit-text-stroke-width: 2px;
-  -webkit-text-stroke-color: var(--main-brown);
-}
+  }
 
-.welcome-container p {
-  color: var(--main-white);
-  font-size: 50px;
-  -webkit-text-stroke-width: 2px;
-  -webkit-text-stroke-color: var(--main-brown);
-}
 
-.welcome-container video {
-    position: relative;
-    display: block;
-    z-index:0;
-    width: 100%;
-    object-fit: initial;
-    height: 800px;
-}
 
-.overlay {
-    position: absolute;
-    bottom:5em;
-    left:5em;
-    z-index:1;
-}
 
 .projects-section {
   text-align: center;
   padding: 10rem 2rem;
   background: var(--main-brown);
+
 }
 
 .project-section-header {
