@@ -52,10 +52,33 @@
 
 .home {
   display: flex;
-  background: url("images/profile_pic.jpg") no-repeat center;
-  height: 100vh;
-  color:#fff;
-  min-height: 500px;
+  background: url("../images/profile_pic.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  color: white;
+  min-height: 100vh;
+  font-family: 'Rubik', sans-serif;
+}
+
+.home .max-width {
+  margin: auto 0 0 0;
+
+}
+
+.home .home-content .text-1 {
+  font-size: 27px;
+}
+
+.home .home-content .text-2 {
+  font-size: 20px;
+  font-weight: 600;
+
+}
+
+.home .home-content .text-3 {
+  font-size: 10px;
+  margin: 5px 0;
 }
 
 
