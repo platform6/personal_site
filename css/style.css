@@ -104,6 +104,14 @@ color: #3737ED;
 
 /* responsive media query start */
 
+@media screen and (max-width: 1104px){
+  .home .max-width{
+    margin-left: 0px;
+  }
+}
+
+
+
 @media screen and (max-width: 947px){
  
   .max-width {
@@ -116,6 +124,10 @@ color: #3737ED;
     z-index: 999;
   }
 
+  .menu-btn i.active:before{
+    content: "\f00d";
+  }
+
   .navbar .menu {
     position: fixed;
     height: 100vh;
@@ -125,6 +137,7 @@ color: #3737ED;
     background: grey;
     text-align: center;
     padding-top: 80px;
+    transition: all 0.3s ease;
   }
 
   .navbar .menu.active{
@@ -142,4 +155,26 @@ color: #3737ED;
     font-size: 20px;
   }
 
+  .home .home-content .text-2 {
+    font-size: 35px;
+  }
+  
+  .home .home-content .text-3 {
+    font-size: 17px;
+  }
+
+  
+}
+
+@media screen and (max-width: 690px){
+
+  .home .home-content .text-2 {
+    font-size: 32px;
+  }
+  
+  .home .home-content .text-3 {
+    font-size: 19px;
+  }
+
+ 
 }
