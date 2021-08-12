@@ -125,6 +125,7 @@ color: #3737ED;
     background: grey;
     text-align: center;
     padding-top: 80px;
+    transition: all 0.3s ease;
   }
 
   .navbar .menu.active{
@@ -143,6 +144,3 @@ color: #3737ED;
   }
 
 }
-
-/* test */
-/* test git */
