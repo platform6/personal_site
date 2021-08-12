@@ -17,9 +17,14 @@
 .navbar {
   position: fixed;
   width: 100%; 
-  padding: 15px 0; 
-  background: crimson;
+  padding: 30px 0; 
   font-family: 'Rubik', sans-serif;
+  transition: all 0.3s ease;
+}
+
+.navbar.sticky{
+  padding: 15px 0; 
+  background: #3737ED;
 }
 
 .navbar .max-width {
@@ -45,10 +50,27 @@
   font-size: 18px;
   font-weight: 500;
   margin-left: 25px;
+  transition: color 0.3s ease;
 
 }
 
-/* home section styling */
+.navbar .menu li a:hover {
+color: #3737ED;
+}
+
+.navbar.sticky .menu li a:hover {
+  color:#D168ED;
+  }
+
+  /* menu button style */
+
+  .menu-btn{
+    font-size: 23px;
+    cursor: pointer;
+    display: none;
+  }
+  
+  /* home section styling */
 
 .home {
   display: flex;
@@ -63,7 +85,6 @@
 
 .home .max-width {
   margin: auto 0 0 0;
-
 }
 
 .home .home-content .text-1 {
@@ -81,4 +102,44 @@
   margin: 5px 0;
 }
 
+/* responsive media query start */
 
+@media screen and (max-width: 947px){
+ 
+  .max-width {
+    padding: 0 50px;
+  }
+
+  .menu-btn {
+    display: block;
+    color: black;
+    z-index: 999;
+  }
+
+  .navbar .menu {
+    position: fixed;
+    height: 100vh;
+    width: 100%;
+    left: -100%;
+    top: 0; 
+    background: grey;
+    text-align: center;
+    padding-top: 80px;
+  }
+
+  .navbar .menu.active{
+    left: 0;
+  }
+
+  .navbar .menu li {
+    display: block;
+
+  }
+  
+  .navbar .menu li a {
+    display: inline-block;
+    margin: 20px 0;
+    font-size: 20px;
+  }
+
+}
