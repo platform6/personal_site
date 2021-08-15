@@ -8,7 +8,7 @@
 }
 
 .max-width {
-  max-width: 1300px;
+  max-width: 100%;
   padding: 0 80px;
   margin: auto;
 }
@@ -20,11 +20,12 @@
   padding: 30px 0; 
   font-family: 'Rubik', sans-serif;
   transition: all 0.3s ease;
+  background: #fff;
 }
 
 .navbar.sticky{
   padding: 15px 0; 
-  background: #3737ED;
+  background: #d2d5a1;
 }
 
 .navbar .max-width {
@@ -34,11 +35,10 @@
 } 
 
 .navbar .logo a {
- color:#fff;
+ color:#1c1f24;
  font-size: 35px;
  font-weight: 600;
- 
-}
+ }
 
 .navbar .menu li {
   list-style: none;
@@ -46,7 +46,7 @@
 }
 
 .navbar .menu li a {
-  color: #fff;
+  color: #1c1f24;;
   font-size: 18px;
   font-weight: 500;
   margin-left: 25px;
@@ -68,12 +68,14 @@ color: #3737ED;
     font-size: 23px;
     cursor: pointer;
     display: none;
+
   }
   
   /* home section styling */
 
 .home {
   display: flex;
+  align-items: center;
   background: url("../images/profile_pic.jpg");
   background-size: cover;
   background-repeat: no-repeat;
@@ -84,7 +86,7 @@ color: #3737ED;
 }
 
 .home .max-width {
-  margin: auto 0 0 0;
+  margin: 150px 0 0 0;
 }
 
 .home .home-content .text-1 {
@@ -98,8 +100,26 @@ color: #3737ED;
 }
 
 .home .home-content .text-3 {
-  font-size: 10px;
+  font-size: 19px;
   margin: 5px 0;
+}
+
+.home .home-content a {
+  display: inline-block;
+  background-color: #de8763;
+  color: #fff;
+  font-size: 25px;
+  padding: 12px 36px;
+  border-radius: 5px;
+  margin-top: 20px;
+  border: 1px solid #d2d5a1;  
+  transition: all 0.3s ease;
+}
+
+.home .home-content a:hover {
+  color: #fff;
+  background: none;
+
 }
 
 /* responsive media query start */
@@ -120,7 +140,7 @@ color: #3737ED;
 
   .menu-btn {
     display: block;
-    color: black;
+    color: #D168ED;
     z-index: 999;
   }
 
