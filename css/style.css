@@ -26,6 +26,7 @@
 .navbar.sticky{
   padding: 15px 0; 
   background: #d2d5a1;
+  z-index: 999;
 }
 
 .navbar .max-width {
@@ -122,6 +123,74 @@ color: #3737ED;
 
 }
 
+/* about section styling */
+section {
+  padding: 100px 0;
+}
+
+.about {
+  font-family: Arial;
+}
+
+.about .about-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.about .title {
+  position: relative;
+  text-align: center;
+  margin-bottom: 30px;
+  padding-bottom: 30px;
+  
+}
+.about .title::before {
+  content: "";
+  position: absolute;
+  bottom: 0px;
+  left: 50%;
+  width: 250px;
+  height: 3px;
+  background: #111;
+  transform: translateX(-50%);
+}
+
+
+.about .title::after {
+  content: "cloud";
+  font-size: 15px;
+  background: #fff;
+  position: absolute;
+  bottom: -14px;
+  left: 50%;
+  padding: 5px;
+  transform: translateX(-50%);
+  color: crimson;
+
+}
+
+.about .about-content .left {
+  width: 45%;
+}
+
+.about .about-content .left img {
+  height: 400px;
+  width: 400px;
+  object-fit: cover;
+
+}
+  
+.about .about-content .right {
+  width: 55%;
+}
+
+.about .about-content .right p {
+  text-align: justify;
+}
+
+
 /* responsive media query start */
 
 @media screen and (max-width: 1104px){
@@ -129,6 +198,26 @@ color: #3737ED;
     margin-left: 0px;
   }
 }
+
+
+@media screen and (max-width: 1042px){
+  .about .about-content .column {
+    width: 50%;
+  }
+  
+  .about .about-content .left {
+    display: flex;
+    justify-content: center;
+    margin: 0 auto 60px;
+  }
+  
+  .about .about-content .right {
+    flex: 100%;
+    text-align: center;
+  }
+
+}
+
 
 
 
@@ -183,8 +272,14 @@ color: #3737ED;
     font-size: 17px;
   }
 
-  
+  .about .about-content .left img {
+    height: 346px;
+    width: 346px;
+    object-fit: cover;
 }
+
+}
+
 
 @media screen and (max-width: 690px){
 
