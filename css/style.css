@@ -1,10 +1,22 @@
 @import url('https://fonts.googleapis.com/css2?family=Rubik&display=swap');
 
+:root {
+  --main-white: #f0f0f0;
+  --main-black: #1c1f24;
+  --main-light-green: #d2d5a1;
+  --main-orange: #de8763;
+  --main-blue: #45567d;
+  --main-gray: #303841;
+  --main-pink: #efcfc2;
+}
+
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   text-decoration: none;
+  font-family: 'Rubik', sans-serif;
 }
 
 .max-width {
@@ -25,7 +37,7 @@
 
 .navbar.sticky{
   padding: 15px 0; 
-  background: #d2d5a1;
+  background: var(--main-light-green);
   z-index: 999;
 }
 
@@ -36,7 +48,7 @@
 } 
 
 .navbar .logo a {
- color:#1c1f24;
+ color: var(--main-black);
  font-size: 35px;
  font-weight: 600;
  }
@@ -47,7 +59,7 @@
 }
 
 .navbar .menu li a {
-  color: #1c1f24;;
+  color: var(--main-black);
   font-size: 18px;
   font-weight: 500;
   margin-left: 25px;
@@ -60,7 +72,7 @@ color: #3737ED;
 }
 
 .navbar.sticky .menu li a:hover {
-  color:#D168ED;
+  color: var(--main-black);
   }
 
   /* menu button style */
@@ -107,7 +119,7 @@ color: #3737ED;
 
 .home .home-content a {
   display: inline-block;
-  background-color: #de8763;
+  background-color: var(--main-orange);
   color: #fff;
   font-size: 25px;
   padding: 12px 36px;
@@ -167,7 +179,7 @@ section {
   left: 50%;
   padding: 5px;
   transform: translateX(-50%);
-  color: crimson;
+  color: var(--main-orange);
 
 }
 
@@ -189,6 +201,39 @@ section {
 .about .about-content .right p {
   text-align: justify;
 }
+
+/* projects section styling */
+
+.projects {
+padding: 0 0;
+
+}
+.projects .title {
+  text-align: center;
+}
+
+.projects-content {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+.projects-content img {
+  max-width: 33vw;
+  height: 35vh;
+ 
+}
+
+.projects-content i {
+  font-size: 35vh; 
+}
+
+
+
+
 
 
 /* responsive media query start */
@@ -229,7 +274,7 @@ section {
 
   .menu-btn {
     display: block;
-    color: #D168ED;
+    color: var(--main-black);
     z-index: 999;
   }
 
@@ -243,7 +288,7 @@ section {
     width: 100%;
     left: -100%;
     top: 0; 
-    background: grey;
+    background: var(--main-light-green);
     text-align: center;
     padding-top: 80px;
     transition: all 0.3s ease;
