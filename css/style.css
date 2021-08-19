@@ -336,5 +336,17 @@ padding: 0 0;
     font-size: 19px;
   }
 
+  .projects-content {
+    display: flex;
+
+    margin-top: 50px;
+    flex-direction: column;
+}
+
+.projects-content img {
+    max-width: 295px;
+    height: 35vh;
+    padding 10px;
+}
  
 }
