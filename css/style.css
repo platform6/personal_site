@@ -147,7 +147,7 @@ section {
 .about .about-content {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-around;
   flex-wrap: wrap;
 }
 
@@ -171,7 +171,7 @@ section {
 
 
 .about .title::after {
-  content: "cloud";
+  content: "Why do this?";
   font-size: 15px;
   background: #fff;
   position: absolute;
@@ -183,14 +183,16 @@ section {
 
 }
 
-.about .about-content .left {
+/* .about .about-content .left {
   width: 45%;
 }
-
+ */
 .about .about-content .left img {
-  height: 400px;
-  width: 400px;
+  max-height: 400px;
+  max-width: 400px;
   object-fit: cover;
+  border-radius: 115px;
+
 
 }
   
@@ -238,6 +240,19 @@ padding: 0 0;
 
 /* responsive media query start */
 
+@media screen and (min-width: 1300px){
+  
+/*   .about .about-content .left {
+    width: 25%;
+    margin-left: 138px;
+  }
+ 
+  .about .about-content .right {
+  margin-right: 138px;
+  }
+ */
+}
+
 @media screen and (max-width: 1104px){
   .home .max-width{
     margin-left: 0px;
@@ -246,6 +261,8 @@ padding: 0 0;
 
 
 @media screen and (max-width: 1042px){
+  
+
   .about .about-content .column {
     width: 50%;
   }
@@ -346,7 +363,8 @@ padding: 0 0;
 .projects-content img {
     max-width: 295px;
     height: 35vh;
-    padding 10px;
+    padding: 10px;
 }
  
+
 }
