@@ -1,0 +1,31 @@
+.flex-container {
+    display: flex;
+    justify-content: space-between;
+    overflow: hidden;
+  }
+  
+  .indiv-flex {
+    display: flex;
+    flex-direction: column;
+    width: 33%;
+  }
+
+  .left-column {
+    height: 120px;
+    background-color: red;
+  }
+  
+  .mid-column {
+    height: 240px;
+    background-color: blue;
+  }
+
+  .right-column {
+    height: 120px;
+    background-color: green;
+  }
+  
+  .align-topper {
+      height: 236px;
+      
+  }
