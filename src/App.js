@@ -1,14 +1,27 @@
 import './App.css';
 import React, { Suspense, lazy } from 'react';
 import Footer from './components/Footer';
+import Header from './components/Header';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+const Elden = lazy(() => import('./pages/Elden'));
 const HomePage = lazy(() => import('./pages/HomePage'));
 
 function App() {
   return (
-    <Suspense fallback={<div>Loading...</div>}>
-      <HomePage />
-      <Footer />
-    </Suspense>
+    <div className="app-container">
+      <Router>
+        <Suspense fallback={<div>Loading...</div>}>
+          <Header />
+          <div className="content">
+            <Routes>
+              <Route path="/" element={<HomePage />} />
+              <Route path="/elden" element={<Elden />} />
+            </Routes>
+          </div>
+          <Footer />
+        </Suspense>
+      </Router>
+    </div>
   );
 }
 

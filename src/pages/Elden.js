@@ -1,0 +1,45 @@
+// src/pages/HomePage.js
+import React, { useEffect, useState } from 'react';
+import { Heading, SimpleGrid } from '@chakra-ui/react';
+import MetaTags from '../components/MetaTags';
+import Layout from '../components/Layout';
+import ResultCard from '../components/ResultCard';
+
+const Elden = () => {
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetch('https://eldenring.fanapis.com/api/weapons')
+      .then((response) => response.json())
+      .then((data) => {
+        setData(data.data);
+        setLoading(false);
+      });
+  }, []);
+
+  return (
+    <>
+      <MetaTags
+        title="Garrett | Elden Ring Search UI"
+        description="Welcome to my portfolio"
+        keywords="portfolio, web developer, React"
+        image="/assets/profile_small.jpg" // Replace with your image URL
+        url="https://garrettconn.com"
+      />
+      {!loading && (
+        <Layout>
+          <Heading>The Elden Ring Search UI</Heading>
+          <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} spacing="20px">
+            {data &&
+              data.map((weapon) => (
+                <ResultCard key={weapon.id} data={weapon} />
+              ))}
+          </SimpleGrid>
+        </Layout>
+      )}
+    </>
+  );
+};
+
+export default Elden;
