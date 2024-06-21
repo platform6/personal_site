@@ -1,6 +1,6 @@
 // src/components/Footer.js
 import React from 'react';
-import { Box, Flex, Icon, Link } from '@chakra-ui/react';
+import { Box, Icon, Link, HStack } from '@chakra-ui/react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faLinkedin,
@@ -9,29 +9,38 @@ import {
   faXTwitter,
 } from '@fortawesome/free-brands-svg-icons';
 
+const SocialIcon = ({ href, icon }) => (
+  <Link href={href} isExternal mx={2}>
+    <Icon
+      as={FontAwesomeIcon}
+      icon={icon}
+      w={{ base: 10, md: 6 }}
+      h={{ base: 12, md: 6 }}
+    />
+  </Link>
+);
+
 const Footer = () => {
   return (
-    <Box bg="teal.500" color="white" py={4} mt={10}>
-      <Flex justify="center" align="center" direction="column">
-        <Flex>
-          <Link href="https://x.com/platform6" isExternal mx={2}>
-            <Icon as={FontAwesomeIcon} icon={faXTwitter} w={6} h={6} />
-          </Link>
-          <Link
-            href="https://www.linkedin.com/in/garrettpconn/"
-            isExternal
-            mx={2}
-          >
-            <Icon as={FontAwesomeIcon} icon={faLinkedin} w={6} h={6} />
-          </Link>
-          <Link href="https://github.com/platform6e" isExternal mx={2}>
-            <Icon as={FontAwesomeIcon} icon={faGithub} w={6} h={6} />
-          </Link>
-          <Link href="https://www.instagram.com/platform6/" isExternal mx={2}>
-            <Icon as={FontAwesomeIcon} icon={faInstagram} w={6} h={6} />
-          </Link>
-        </Flex>
-      </Flex>
+    <Box
+      border={'2px solid purple'}
+      bg="#9f65b8"
+      color="white"
+      py={{ base: 10, md: 4 }}
+      mt={10}
+    >
+      <HStack justify="center" align="center" justifyContent={'space-evenly'}>
+        <SocialIcon href="https://x.com/platform6" icon={faXTwitter} />
+        <SocialIcon
+          href="https://www.linkedin.com/in/garrettpconn/"
+          icon={faLinkedin}
+        />
+        <SocialIcon href="https://github.com/platform6" icon={faGithub} />
+        <SocialIcon
+          href="https://www.instagram.com/platform6/"
+          icon={faInstagram}
+        />
+      </HStack>
     </Box>
   );
 };
