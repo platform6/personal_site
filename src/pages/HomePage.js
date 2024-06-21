@@ -28,13 +28,13 @@ const HomePage = () => {
   console.log('breakpoint', breakpoint);
   const content = (
     <>
-      <Box bg="gray.100" p={{ base: 4, md: 6 }} borderRadius="md">
-        <Text fontSize={{ base: 'md', md: 'lg' }}>
-          hello welcome to a wip portfolio page
-        </Text>
-      </Box>
-      <Link to="/elden">
-        <Box bg="gray.100" p={{ base: 4, md: 6 }} borderRadius="md">
+      <Link to="/resume" style={{ display: 'flex', flexGrow: 1 }}>
+        <Box bg="gray.100" p={{ base: 4, md: 6 }} borderRadius="md" flex="1">
+          <Text fontSize={{ base: 'md', md: 'lg' }}>Resume</Text>
+        </Box>
+      </Link>
+      <Link to="/elden" style={{ display: 'flex', flexGrow: 1 }}>
+        <Box bg="gray.100" p={{ base: 4, md: 6 }} borderRadius="md" flex="1">
           <Text fontSize={{ base: 'md', md: 'lg' }}>
             Example of using an API to gather, sort, and filter data
           </Text>
@@ -57,7 +57,7 @@ const HomePage = () => {
           <VStack
             spacing={5}
             p={2}
-            alignItems="flex-start"
+            align="stretch"
             // border={'1px solid purple'}
           >
             {content}

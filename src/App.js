@@ -5,6 +5,7 @@ import Header from './components/Header';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 const Elden = lazy(() => import('./pages/Elden'));
 const HomePage = lazy(() => import('./pages/HomePage'));
+const Resume = lazy(() => import('./pages/Resume'));
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
             <Routes>
               <Route path="/" element={<HomePage />} />
               <Route path="/elden" element={<Elden />} />
+              <Route path="/resume" element={<Resume />} />
             </Routes>
           </div>
           <Footer />
