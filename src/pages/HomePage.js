@@ -53,13 +53,6 @@ const HomePage = () => {
         url="https://garrettconn.com"
       />
       <Layout>
-        <Box>
-          <Text>
-            Current layout:{' '}
-            {isMobile ? 'Mobile (HStack)' : 'Desktop (SimpleGrid)'}
-          </Text>
-        </Box>
-
         {isMobile ? (
           <VStack
             spacing={5}
