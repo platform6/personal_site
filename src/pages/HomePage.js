@@ -23,9 +23,6 @@ const HomePage = () => {
 
   // Determine whether to use horizontal stack or grid based on screen size
   const isMobile = useBreakpointValue({ base: true, md: false });
-  const breakpoint = useBreakpointValue({ base: 'base', md: 'md', lg: 'lg' });
-  console.log('isMobile', isMobile);
-  console.log('breakpoint', breakpoint);
   const content = (
     <>
       <Link to="/resume" style={{ display: 'flex', flexGrow: 1 }}>

@@ -3,6 +3,7 @@ import React, { Suspense, lazy } from 'react';
 import Footer from './components/Footer';
 import Header from './components/Header';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { Progress } from '@chakra-ui/react';
 const Elden = lazy(() => import('./pages/Elden'));
 const HomePage = lazy(() => import('./pages/HomePage'));
 const Resume = lazy(() => import('./pages/Resume'));
@@ -11,7 +12,7 @@ function App() {
   return (
     <div className="app-container">
       <Router>
-        <Suspense fallback={<div>Loading...</div>}>
+        <Suspense fallback={<Progress size="xs" isIndeterminate />}>
           <Header />
           <div className="content">
             <Routes>
