@@ -1,6 +1,6 @@
 // src/components/Footer.js
 import React from 'react';
-import { Box, Icon, Link, HStack } from '@chakra-ui/react';
+import { Box, Icon, Link, HStack, Text, Flex } from '@chakra-ui/react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faLinkedin,
@@ -24,10 +24,11 @@ const Footer = () => {
   return (
     <Box
       border={'2px solid purple'}
-      bg="#9f65b8"
+      bg="#9f037a"
       color="white"
-      py={{ base: 10, md: 4 }}
+      py={{ base: 8, md: 4 }}
       mt={10}
+      mH={'127px'}
     >
       <HStack justify="center" align="center" justifyContent={'space-evenly'}>
         <SocialIcon href="https://x.com/platform6" icon={faXTwitter} />
@@ -41,6 +42,15 @@ const Footer = () => {
           icon={faInstagram}
         />
       </HStack>
+      <Flex mt={5} align={'center'} flexDirection={'column'}>
+        <Text>Concord, NH</Text>
+        <Link
+          textDecoration={'underline'}
+          href="mailto:garrett.peter.conn@gmail.com"
+        >
+          garrett.peter.conn@gmail.com
+        </Link>
+      </Flex>
     </Box>
   );
 };

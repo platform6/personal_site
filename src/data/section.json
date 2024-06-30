@@ -1,0 +1,23 @@
+[
+  {
+    "id": 1,
+    "heading": "About Me",
+    "text": "Learn more about my profesional background as a software engineer and my values surronding work and technology",
+    "link": "/about-me",
+    "img": "/assets/purpleBorder.jpg"
+  },
+  {
+    "id": 2,
+    "heading": "Elden Ring Search UI",
+    "text": "A search UI project based on using the Elden Ring API as a data source.  An example of using an API to gather, sort, and filter data ",
+    "link": "/elden",
+    "img": "/assets/knight.jpg"
+  },
+  {
+    "id": 3,
+    "heading": "//TODO:  ToddlerToDo",
+    "text": "A sample project showcasing a TODO application designed for toddlers. The aim is to offer a colorful and engaging user interface that helps toddlers stay on track with their routines. Every parent knows the challenges of maintaining consistent wake-up and bedtime routines!",
+    "link": "/toddlertodo",
+    "img": "/assets/toddler2.jpg"
+  }
+]

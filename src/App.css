@@ -9,3 +9,15 @@
 .content {
   flex: 1; /* This makes the content area take up the remaining space */
 }
+
+.body h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: 'Josefin Sans', sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 700;
+  font-style: normal;
+}
