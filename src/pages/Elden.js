@@ -1,6 +1,6 @@
 // src/pages/HomePage.js
 import React, { useEffect, useState } from 'react';
-import { Heading, SimpleGrid } from '@chakra-ui/react';
+import { Heading, SimpleGrid, Text } from '@chakra-ui/react';
 import MetaTags from '../components/MetaTags';
 import Layout from '../components/Layout';
 import ResultCard from '../components/ResultCard';
@@ -22,7 +22,7 @@ const Elden = () => {
     <>
       <MetaTags
         title="Garrett | Elden Ring Search UI"
-        description="Welcome to my portfolio"
+        description="Elden ring search ui"
         keywords="portfolio, web developer, React"
         image="/assets/profile_small.jpg" // Replace with your image URL
         url="https://garrettconn.com"
@@ -30,6 +30,10 @@ const Elden = () => {
       {!loading && (
         <Layout>
           <Heading>The Elden Ring Search UI</Heading>
+          <Text>
+            This is currently a work in progress with new functionality to be
+            added.
+          </Text>
           <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} spacing="20px">
             {data &&
               data.map((weapon) => (

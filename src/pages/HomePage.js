@@ -1,42 +1,31 @@
 // src/pages/HomePage.js
-import React, { useEffect } from 'react';
-import {
-  SimpleGrid,
-  Box,
-  Text,
-  VStack,
-  useBreakpointValue,
-} from '@chakra-ui/react';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { SimpleGrid, VStack, useBreakpointValue } from '@chakra-ui/react';
 import MetaTags from '../components/MetaTags';
 import Layout from '../components/Layout';
+import sectionData from '../data/section.json';
+import SectionCard from '../components/SectionCard';
 
 const HomePage = () => {
-  //   const [data, setData] = useState(null);
+  const [sections, setSections] = useState([]);
 
   useEffect(() => {
-    // Fetch data or perform any side effects here
-    // fetch('/api/data')
-    //   .then((response) => response.json())
-    //   .then((data) => setData(data));
+    setSections(sectionData);
   }, []);
 
   // Determine whether to use horizontal stack or grid based on screen size
   const isMobile = useBreakpointValue({ base: true, md: false });
   const content = (
     <>
-      <Link to="/resume" style={{ display: 'flex', flexGrow: 1 }}>
-        <Box bg="gray.100" p={{ base: 4, md: 6 }} borderRadius="md" flex="1">
-          <Text fontSize={{ base: 'md', md: 'lg' }}>Resume</Text>
-        </Box>
-      </Link>
-      <Link to="/elden" style={{ display: 'flex', flexGrow: 1 }}>
-        <Box bg="gray.100" p={{ base: 4, md: 6 }} borderRadius="md" flex="1">
-          <Text fontSize={{ base: 'md', md: 'lg' }}>
-            Example of using an API to gather, sort, and filter data
-          </Text>
-        </Box>
-      </Link>
+      {sections.map((section) => (
+        <SectionCard
+          key={section.id}
+          link={section.link}
+          heading={section.heading}
+          text={section.text}
+          img={section.img}
+        />
+      ))}
     </>
   );
 

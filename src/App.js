@@ -6,7 +6,8 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { Progress } from '@chakra-ui/react';
 const Elden = lazy(() => import('./pages/Elden'));
 const HomePage = lazy(() => import('./pages/HomePage'));
-const Resume = lazy(() => import('./pages/Resume'));
+const AboutMe = lazy(() => import('./pages/AboutMe'));
+const Toddler = lazy(() => import('./pages/Toddler'));
 
 function App() {
   return (
@@ -18,7 +19,8 @@ function App() {
             <Routes>
               <Route path="/" element={<HomePage />} />
               <Route path="/elden" element={<Elden />} />
-              <Route path="/resume" element={<Resume />} />
+              <Route path="/about-me" element={<AboutMe />} />
+              <Route path="/toddlertodo" element={<Toddler />} />
             </Routes>
           </div>
           <Footer />
