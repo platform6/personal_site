@@ -28,7 +28,7 @@ const Footer = () => {
       color="white"
       py={{ base: 8, md: 4 }}
       mt={10}
-      mH={'127px'}
+      minHeight={'127px'}
     >
       <HStack justify="center" align="center" justifyContent={'space-evenly'}>
         <SocialIcon href="https://x.com/platform6" icon={faXTwitter} />
