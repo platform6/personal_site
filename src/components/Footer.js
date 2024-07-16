@@ -9,11 +9,12 @@ import {
   faXTwitter,
 } from '@fortawesome/free-brands-svg-icons';
 
-const SocialIcon = ({ href, icon }) => (
+const SocialIcon = ({ href, icon, aria }) => (
   <Link href={href} isExternal mx={2}>
     <Icon
       as={FontAwesomeIcon}
       icon={icon}
+      aria-label={aria}
       w={{ base: 10, md: 6 }}
       h={{ base: 12, md: 6 }}
     />
@@ -31,15 +32,24 @@ const Footer = () => {
       minHeight={'127px'}
     >
       <HStack justify="center" align="center" justifyContent={'space-evenly'}>
-        <SocialIcon href="https://x.com/platform6" icon={faXTwitter} />
+        <SocialIcon
+          href="https://x.com/platform6"
+          icon={faXTwitter}
+          aria={'Twitter'}
+        />
         <SocialIcon
           href="https://www.linkedin.com/in/garrettpconn/"
           icon={faLinkedin}
         />
-        <SocialIcon href="https://github.com/platform6" icon={faGithub} />
+        <SocialIcon
+          href="https://github.com/platform6"
+          icon={faGithub}
+          aria={'Linkedin'}
+        />
         <SocialIcon
           href="https://www.instagram.com/platform6/"
           icon={faInstagram}
+          aria={'Instagram'}
         />
       </HStack>
       <Flex mt={5} align={'center'} flexDirection={'column'}>
@@ -47,6 +57,7 @@ const Footer = () => {
         <Link
           textDecoration={'underline'}
           href="mailto:garrett.peter.conn@gmail.com"
+          aria-label="Email"
         >
           garrett.peter.conn@gmail.com
         </Link>

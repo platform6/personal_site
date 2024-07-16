@@ -24,6 +24,7 @@ const HomePage = () => {
           heading={section.heading}
           text={section.text}
           img={section.img}
+          alt={section.alt}
         />
       ))}
     </>

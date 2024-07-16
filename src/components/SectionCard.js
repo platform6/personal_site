@@ -25,7 +25,7 @@ const SectionCard = ({ link, heading, text, img, alt }) => {
               width={'100%'}
               height={'100%'}
               src={img}
-              alt="Dan Abramov"
+              alt={alt}
             />
           </Box>
           <Flex flexDirection="column">
