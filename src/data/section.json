@@ -4,7 +4,7 @@
     "heading": "About Me",
     "text": "Learn more about my profesional background as a software engineer and my values surronding work and technology",
     "link": "/about-me",
-    "img": "/resized/480-purpleBorder.jpg",
+    "img": "/resized/purpleBorder-480.webp",
     "alt": "purple paint swirl"
   },
   {
@@ -12,7 +12,7 @@
     "heading": "Elden Ring Search UI",
     "text": "A search UI project based on using the Elden Ring API as a data source.  An example of using an API to gather, sort, and filter data ",
     "link": "/elden",
-    "img": "/resized/480-knight.jpg",
+    "img": "/resized/knight-480.webp",
     "alt": "knight in shining armor"
   },
   {
@@ -20,7 +20,7 @@
     "heading": "//TODO:  ToddlerToDo",
     "text": "A sample project showcasing a TODO application designed for toddlers. The aim is to offer a colorful and engaging user interface that helps toddlers stay on track with their routines. Every parent knows the challenges of maintaining consistent wake-up and bedtime routines!",
     "link": "/toddlertodo",
-    "img": "/resized/480-toddler2.jpg",
+    "img": "/resized/toddler2-480.webp",
     "alt": "sunrising over mountains with stars in the sky"
   }
 ]

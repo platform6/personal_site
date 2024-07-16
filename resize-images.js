@@ -13,15 +13,17 @@ if (!fs.existsSync(outputDir)) {
 
 // Define the sizes you need
 const sizes = [480];
+const format = ['webp'];
 
 fs.readdir(sourceDir, (err, files) => {
   if (err) throw err;
 
   files.forEach((file) => {
     const inputFile = path.join(sourceDir, file);
+    const baseName = path.basename(file, path.extname(file));
 
     sizes.forEach((size) => {
-      const outputFile = path.join(outputDir, `${size}-${file}`);
+      const outputFile = path.join(outputDir, `${baseName}-${size}.${format}`);
 
       sharp(inputFile)
         .resize(size)
