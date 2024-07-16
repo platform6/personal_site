@@ -1,35 +1,43 @@
 import React from 'react';
-//import resumeItems from '../components/Resume/ResumeItems';
-import { Box, Text } from '@chakra-ui/react';
+import { Box, Heading } from '@chakra-ui/react';
+import profExp from '../data/profExp.json';
+import ProfCard from '../components/ProfCard';
+import Expertise from '../components/Expertise';
+import Layout from '../components/Layout';
 
-const Resume = () => {
-  // const TimelineItem = ({ year, title, description, position }) => (
-  //   <VStack align="start" p={6} spacing={4}>
-  //     <Text fontWeight="bold" fontSize="lg">
-  //       {year}
-  //     </Text>
-  //     <Text fontSize="md">{title}</Text>
-  //     <Text fontSize="sm" color="gray.600">
-  //       {description}
-  //     </Text>
-  //   </VStack>
-  // );
+// const content = (
+//   <>
+//     {profExp.map((section, index) => (
+//       <ProfCard key={index} {...section} />
+//     ))}
+//   </>
+// );
 
-  // return resumeItems.map((item, index) => (
-  //   <TimelineItem
-  //     key={index}
-  //     year={item.year}
-  //     title={item.title}
-  //     description={item.description}
-  //   />
-  // ));
+const ProfExp = () => {
   return (
-    <Box p={50} align={'center'}>
-      <Text align={'center'} justifyContent={'center'}>
-        in progress ...{' '}
-      </Text>
-    </Box>
+    <>
+      <Layout>
+        <Box
+          display="flex"
+          // border={'1px solid red'}
+          minH="100px"
+          justifyContent="center"
+          alignItems="center"
+          bg={'#D756B9'}
+        >
+          <Heading fontSize={{ base: 'xl', md: 'xl' }} color={'white'}>
+            PROFESSIONAL EXPERIENCE
+          </Heading>
+        </Box>
+        <Expertise />
+        <Box>
+          {profExp.map((section, index) => (
+            <ProfCard key={index} {...section} />
+          ))}
+        </Box>
+      </Layout>
+    </>
   );
 };
 
-export default Resume;
+export default ProfExp;

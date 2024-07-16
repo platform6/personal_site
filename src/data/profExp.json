@@ -1,0 +1,94 @@
+[
+  {
+    "employer": "International Association of Privacy Professionals (IAPP)",
+    "title": "Front End Engineer",
+    "location": "Portsmouth, NH",
+    "date": "January 2023 - June 2024",
+    "responsibilities": [
+      "Served as the project technical lead for implementing a new React application with the Chakra UI component library and an AWS microservice architecture backend.",
+      "Designed NodeJS AWS Lambda functions which were deployed using a CDN Infrastructure behind a Web Application Firewall. This was deployed using a CloudFormation Template in an Infrastructure as Code model.",
+      "Integrated Redux and React Router for state management and routing, and implemented an ElasticSearch package for advanced content filtering and search functionalities.",
+      "Set up and managed DynamoDB NoSQL tables to support the application's data storage needs.",
+      "Implemented a microservice document renderer for email delivery based on a headless CMS system webhook that reached a large membership audience.",
+      "Developed custom export/import code base that migrated the organization's content between legacy and strategic headless CMS systems."
+    ],
+    "technologies_used": [
+      "React",
+      "Redux",
+      "React Router",
+      "ElasticSearch",
+      "Chakra UI",
+      "AWS Lambda",
+      "NodeJS",
+      "AWS CloudFormation",
+      "DynamoDB",
+      "CloudFront",
+      "Contentstack",
+      "Zod",
+      "React Snap"
+    ]
+  },
+  {
+    "employer": "FinThrive",
+    "title": "Robotic Process Automation Engineer",
+    "location": "Alpharetta, GA",
+    "date": "September 2021 - January 2023",
+    "responsibilities": [
+      "Designed, engineered, and tested UiPath robotic process automation workflows, code libraries, and rapid prototypes through the whole lifecycle. Working with both VB.Net and C# workflows.",
+      "Created an advanced document retrieval automation that correctly identified supplemental documentation for claim denials, including scraping legacy UIs without accessible APIs and scanning .PDF files with Optical Character Recognition (OCR) saving 12 hours in manual work per day.",
+      "Worked directly with stakeholders to capture business requirements and translate them into technical approaches and designs, with particular attention to code modularity and reusability."
+    ],
+    "technologies_used": ["UiPath", "VB.Net", "OCR", "C#"]
+  },
+  {
+    "employer": "New Hampshire Higher Education Assistance Foundation (NHHEAF)",
+    "title": "Software Developer",
+    "location": "Concord, NH",
+    "date": "March 2020 - September 2021",
+    "responsibilities": [
+      "Engineered a Java-based data processing system that managed incoming enrollment data and updated the organization's student loan portfolio which included approximately a million individual borrowers. This system ensured the accurate application of in-school deferment statuses from a myriad of enrollment sources which resulted in the accurate interest capitalization for each account.",
+      "Crafted complex database solutions using Microsoft SQL Server, including designing and creating new tables, optimizing stored procedures, and ensuring data integrity. Including designing normalized database schemas to reduce redundancy and improve performances and managing indexes to enhance query performance."
+    ],
+    "technologies_used": [
+      "Java",
+      "JUnit",
+      "Apache Ant",
+      "Microsoft SQL Server",
+      "REST API"
+    ]
+  },
+  {
+    "employer": "New Hampshire Higher Education Assistance Foundation (NHHEAF)",
+    "title": "Robotic Process Automation Engineer",
+    "location": "Concord, NH",
+    "date": "March 2018 - March 2020",
+    "responsibilities": [
+      "Driving enterprise-wide efficiency projects as part of the Software Development team from inception to implementation. Playing a critical role in requirements gathering, design, programming, testing, and maintenance of UI Path based automations.",
+      "In FY18 completed 24 automation projects that completed previously manually performed tasks which would have otherwise consumed 12,000 man hours. With an estimated cost savings to the organization of $300,000 based on the prevailing wage of NH."
+    ],
+    "technologies_used": [
+      "UiPath",
+      "VB.Net",
+      "XLinq",
+      "Regex",
+      "Microsoft SQL Server",
+      "REST API"
+    ]
+  },
+  {
+    "employer": "New Hampshire Higher Education Assistance Foundation (NHHEAF)",
+    "title": "Business System Analyst I, II",
+    "location": "Concord, NH",
+    "date": "July 2016 - March 2018",
+    "responsibilities": [
+      "Led end-to-end SDLC projects, leveraging extensive expertise in business process mapping to streamline workflows and enhance operational efficiency.",
+      "Used SAP BusinessObjects Web Intelligence to query the data warehouse to ensure that the data required for reporting and business processes were correctly structured and accessible."
+    ],
+    "technologies_used": [
+      "SAP BusinessObjects Web Intelligence",
+      "JIRA/Confluence",
+      "Microsoft SQL Server",
+      "UML"
+    ]
+  }
+]
