@@ -24,8 +24,7 @@ const Elden = () => {
         title="Garrett | Elden Ring Search UI"
         description="Elden ring search ui"
         keywords="portfolio, web developer, React, Elden Ring"
-        image="/assets/purpleBorder_horizontal.jpg"
-        url="https://garrettconn.com"
+        image="https://garrettc.dev/assets/og_assets/knight_preview.jpg"
       />
       {!loading && (
         <Layout>
