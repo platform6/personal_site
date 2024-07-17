@@ -12,6 +12,7 @@ const MetaTags = ({ title, description, keywords, image, alt, url }) => (
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:image" content={image} />
+    {/* TODO: // fix all alts */}
     <meta
       property="og:image:alt"
       content={alt ? alt : 'alt text not available'}
