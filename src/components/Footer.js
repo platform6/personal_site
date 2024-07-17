@@ -10,11 +10,10 @@ import {
 } from '@fortawesome/free-brands-svg-icons';
 
 const SocialIcon = ({ href, icon, aria }) => (
-  <Link href={href} isExternal mx={2}>
+  <Link href={href} isExternal aria-label={aria} mx={2}>
     <Icon
       as={FontAwesomeIcon}
       icon={icon}
-      aria-label={aria}
       w={{ base: 10, md: 6 }}
       h={{ base: 12, md: 6 }}
     />
