@@ -23,8 +23,8 @@ const Elden = () => {
       <MetaTags
         title="Garrett | Elden Ring Search UI"
         description="Elden ring search ui"
-        keywords="portfolio, web developer, React"
-        image="/assets/profile_small.jpg" // Replace with your image URL
+        keywords="portfolio, web developer, React, Elden Ring"
+        image="/assets/purpleBorder_horizontal.jpg"
         url="https://garrettconn.com"
       />
       {!loading && (

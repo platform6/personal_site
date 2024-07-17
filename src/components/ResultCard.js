@@ -14,7 +14,12 @@ const ResultCard = ({ data }) => {
       <CardBody>
         <VStack align="center" spacing="3">
           <Heading>{data.name}</Heading>
-          <Image borderRadius="full" boxSize="150px" src={data.image} />
+          <Image
+            borderRadius="full"
+            boxSize="150px"
+            src={data.image}
+            alt={data.name}
+          />
           <Box maxW="400px">
             <Text fontSize="lg" justify="center">
               {data.description}

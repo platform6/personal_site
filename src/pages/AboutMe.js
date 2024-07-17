@@ -4,6 +4,7 @@ import profExp from '../data/profExp.json';
 import ProfCard from '../components/ProfCard';
 import Expertise from '../components/Expertise';
 import Layout from '../components/Layout';
+import MetaTags from '../components/MetaTags';
 
 // const content = (
 //   <>
@@ -16,6 +17,13 @@ import Layout from '../components/Layout';
 const ProfExp = () => {
   return (
     <>
+      <MetaTags
+        title="Garrett Conn | Resume"
+        description="A resume of software engineer Garrett Conn"
+        keywords="resume, career, web, software, engineer"
+        image="/assets/purpleBorder_horizontal.jpg"
+        url="https://garrettconn.com"
+      />
       <Layout>
         <Box
           display="flex"
