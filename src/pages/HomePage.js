@@ -36,7 +36,8 @@ const HomePage = () => {
         title="Garrett Conn"
         description="Welcome to my portfolio"
         keywords="portfolio, web developer, React"
-        image="/assets/purpleBorder_horizontal.jpg"
+        image="https://garrettconn.com/assets/purpleBorder_horizontal.jpg"
+        alt="purple paint swosh"
         url="https://garrettconn.com"
       />
       <Layout>
