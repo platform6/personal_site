@@ -2,6 +2,8 @@
 import React from 'react';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 
+const t = Math.floor(new Date().getTime() / 1000);
+
 const MetaTags = ({ title, description, keywords, image, alt, url }) => (
   <Helmet>
     <title>{title}</title>
@@ -17,8 +19,9 @@ const MetaTags = ({ title, description, keywords, image, alt, url }) => (
       property="og:image:alt"
       content={alt ? alt : 'alt text not available'}
     />
+    <meta property="og:updated_time" content={t} />
     <meta property="og:url" content={url} />
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content="article" />
   </Helmet>
 );
 
