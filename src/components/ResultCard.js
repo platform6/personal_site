@@ -10,7 +10,7 @@ import {
 
 const ResultCard = ({ data }) => {
   return (
-    <Card maxW="sm" my="5px" shadow="lg">
+    <Card maxW="sm" my="5px" shadow="md" border={'1px solid grey'}>
       <CardBody>
         <VStack align="center" spacing="3">
           <Heading>{data.name}</Heading>
