@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Flex, VStack, Heading } from '@chakra-ui/react';
+import { Box, Flex } from '@chakra-ui/react';
 
 const Battle = () => {
   return (
