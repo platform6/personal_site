@@ -1,27 +1,8 @@
 import React from 'react';
 import { Box, VStack, Heading } from '@chakra-ui/react';
+import { AmplifySignOut, withAuthenticator } from '@aws-amplify/ui-react';
 
 const Toddler = () => {
-  // const TimelineItem = ({ year, title, description, position }) => (
-  //   <VStack align="start" p={6} spacing={4}>
-  //     <Text fontWeight="bold" fontSize="lg">
-  //       {year}
-  //     </Text>
-  //     <Text fontSize="md">{title}</Text>
-  //     <Text fontSize="sm" color="gray.600">
-  //       {description}
-  //     </Text>
-  //   </VStack>
-  // );
-
-  // return resumeItems.map((item, index) => (
-  //   <TimelineItem
-  //     key={index}
-  //     year={item.year}
-  //     title={item.title}
-  //     description={item.description}
-  //   />
-  // ));
   return (
     <Box p={25}>
       <VStack spacing={2}>
