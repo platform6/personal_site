@@ -8,6 +8,7 @@ const Elden = lazy(() => import('./pages/Elden'));
 const HomePage = lazy(() => import('./pages/HomePage'));
 const AboutMe = lazy(() => import('./pages/AboutMe'));
 const Toddler = lazy(() => import('./pages/Toddler'));
+const Battle = lazy(() => import('./pages/JobBattle'));
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
               <Route path="/elden" element={<Elden />} />
               <Route path="/about-me" element={<AboutMe />} />
               <Route path="/toddlertodo" element={<Toddler />} />
+              <Route path="/battle" element={<Battle />} />
             </Routes>
           </div>
           <Footer />
