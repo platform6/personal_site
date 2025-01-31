@@ -17,7 +17,7 @@
   },
   {
     "id": 3,
-    "heading": "//TODO:  ToddlerToDo",
+    "heading": "ToddlerToDo",
     "text": "A sample project showcasing a TODO application designed for toddlers. The aim is to offer a colorful and engaging user interface that helps toddlers stay on track with their routines. Every parent knows the challenges of maintaining consistent wake-up and bedtime routines!",
     "link": "/toddlertodo",
     "img": "/resized/toddler2-480.webp",
@@ -30,5 +30,13 @@
     "link": "/battle",
     "img": "/resized/coin-480.webp",
     "alt": "8 bit coins"
+  },
+  {
+    "id": 5,
+    "heading": "Video Game List Challenge",
+    "text": "Based on a disagreement between friends surronding a Rolling Stones article.  A challenge was cast to create two lists by a friend. One list being my personal list of all time greatest games. Another list of the most important games to the world.",
+    "link": "/gamelist",
+    "img": "/resized/game_controllers-480.webp",
+    "alt": "game controllers"
   }
 ]

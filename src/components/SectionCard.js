@@ -1,8 +1,10 @@
 import React from 'react';
 import { Box, Heading, Text, Flex, Image } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
+import DOMPurify from 'dompurify';
 
 const SectionCard = ({ link, heading, text, img, alt }) => {
+  const sanitizedText = DOMPurify.sanitize(text);
   return (
     <Link to={link} style={{ display: 'flex', flexGrow: 1 }}>
       <Box bg="gray.100" p={{ base: 2, md: 6 }} borderRadius="md">
@@ -32,7 +34,10 @@ const SectionCard = ({ link, heading, text, img, alt }) => {
             <Heading size="sm" py="5">
               {heading}
             </Heading>
-            <Text fontSize={{ base: 'sm', md: 'md' }}>{text}</Text>
+            <Text
+              fontSize={{ base: 'sm', md: 'md' }}
+              dangerouslySetInnerHTML={{ __html: sanitizedText }}
+            />
           </Flex>
         </Flex>
       </Box>
