@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import {
-  Box,
   Container,
   VStack,
   Heading,
   Text,
   Flex,
-  useColorModeValue,
   IconButton,
   ButtonGroup,
   Button,
@@ -23,22 +21,17 @@ const fetchSheetData = async (sheetName = 'GameList') => {
 
 const GameList = () => {
   const [currentPage, setCurrentPage] = useState(1);
-  const [loading, setLoading] = useState(true);
   const [games, setGames] = useState([]);
-  const [error, setError] = useState(null);
   const [activeSheet, setActiveSheet] = useState('GameList');
 
   useEffect(() => {
     const loadGames = async () => {
       try {
-        setLoading(true);
         const data = await fetchSheetData(activeSheet);
         setGames(data);
       } catch (err) {
-        setError('Failed to load games');
         console.error('Error loading games:', err);
       } finally {
-        setLoading(false);
       }
     };
     loadGames();
@@ -58,6 +51,26 @@ const GameList = () => {
   };
   return (
     <Container maxW="4xl" py={8}>
+      <Text p={6}>
+        This code represents a full-stack implementation of a game list viewer
+        using React and a Netlify serverless function to fetch data from Google
+        Sheets. The backend component (exports.handler) is a Netlify serverless
+        function that securely manages the connection to Google Sheets. It uses
+        environment variables to store sensitive API credentials and accepts a
+        sheet name parameter through query parameters, allowing dynamic
+        selection of different game lists. The frontend component (GameList) is
+        a React component that presents the data in a paginated, interactive
+        interface. It features a toggle system between two different game lists
+        ("Personal" and "Most Influential") using styled buttons, and displays
+        games in a responsive layout with 20 items per page. The component
+        implements pagination controls for navigating through the list and uses
+        Chakra UI for consistent styling. The two parts communicate through the
+        fetchSheetData function, which makes API calls to the Netlify function
+        endpoint, passing the selected sheet name and receiving the
+        corresponding game data. This architecture ensures secure API key
+        handling while providing a smooth, responsive user experience for
+        viewing and navigating between different game lists.
+      </Text>
       <ButtonGroup spacing={4} mb={6} width="100%" justifyContent="center">
         <Button
           color={'white'}
