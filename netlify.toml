@@ -10,18 +10,17 @@
   to = "/index.html"
   status = 200
 
-[headers]
-  # Define security headers for all pages
+[[headers]]
   for = "/*"
-    [headers.values]
+  [headers.values]
     X-Frame-Options = "DENY"
     X-XSS-Protection = "1; mode=block"
     X-Content-Type-Options = "nosniff"
     Referrer-Policy = "strict-origin-when-cross-origin"
     Content-Security-Policy = "frame-ancestors 'none';"
 
-  # Allow Sanity Studio to work properly
+[[headers]]
   for = "/admin/*"
-    [headers.values]
+  [headers.values]
     X-Frame-Options = "SAMEORIGIN"
     Content-Security-Policy = "frame-ancestors 'self';"
