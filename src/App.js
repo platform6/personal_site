@@ -4,15 +4,11 @@ import Footer from './components/Footer';
 import Header from './components/Header';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { Progress } from '@chakra-ui/react';
-import ProtectedRoute from './components/ProtectedRoute';
 
 const Elden = lazy(() => import('./pages/Elden'));
 const HomePage = lazy(() => import('./pages/HomePage'));
 const AboutMe = lazy(() => import('./pages/AboutMe'));
-const Toddler = lazy(() => import('./pages/Toddler'));
-const Battle = lazy(() => import('./pages/JobBattle'));
 const GameList = lazy(() => import('./pages/GameList'));
-const Admin = lazy(() => import('./pages/Admin'));
 
 function App() {
   return (
@@ -25,19 +21,7 @@ function App() {
               <Route path="/" element={<HomePage />} />
               <Route path="/elden" element={<Elden />} />
               <Route path="/about-me" element={<AboutMe />} />
-              <Route path="/toddlertodo" element={<Toddler />} />
-              <Route path="/battle" element={<Battle />} />
               <Route path="/gamelist" element={<GameList />} />
-              <Route
-                path="/admin/*"
-                element={
-                  <ProtectedRoute>
-                    <div style={{ height: '100vh' }}>
-                      <Admin />
-                    </div>
-                  </ProtectedRoute>
-                }
-              />
             </Routes>
           </div>
           <Footer />

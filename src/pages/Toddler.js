@@ -1,6 +1,5 @@
 import React from 'react';
 import { Box, VStack, Heading } from '@chakra-ui/react';
-// import { AmplifySignOut, withAuthenticator } from '@aws-amplify/ui-react';
 
 const Toddler = () => {
   return (
