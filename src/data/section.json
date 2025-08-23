@@ -17,17 +17,9 @@
   },
   {
     "id": 3,
-    "heading": "ToddlerToDo",
-    "text": "A sample project showcasing a TODO application designed for toddlers. The aim is to offer a colorful and engaging user interface that helps toddlers stay on track with their routines. Every parent knows the challenges of maintaining consistent wake-up and bedtime routines!",
-    "link": "/toddlertodo",
-    "img": "/resized/toddler2-480.webp",
-    "alt": "sunrising over mountains with stars in the sky"
-  },
-  {
-    "id": 4,
-    "heading": "JobBattler",
-    "text": "An attempt at creating a turn based job tracking movitivational game.  Adding jobs applied, recruiters talked to, and professional devleopment hours will increase your health, mana, and inellegience.  Alowing you to battle your foe - unemployment",
-    "link": "/battle",
+    "heading": "Game Notes",
+    "text": "A place to store notes on games I've played.  I would like to use this as a way to practice my writing skills and to share my thoughts on the games I've played.",
+    "link": "https://looping.pika.page/",
     "img": "/resized/coin-480.webp",
     "alt": "8 bit coins"
   },

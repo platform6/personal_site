@@ -6,7 +6,7 @@ import {
   faLinkedin,
   faGithub,
   faInstagram,
-  faXTwitter,
+  faItchIo,
 } from '@fortawesome/free-brands-svg-icons';
 
 const SocialIcon = ({ href, icon, aria }) => (
@@ -32,9 +32,9 @@ const Footer = () => {
     >
       <HStack justify="center" align="center" justifyContent={'space-evenly'}>
         <SocialIcon
-          href="https://x.com/platform6"
-          icon={faXTwitter}
-          aria={'Twitter'}
+          href="https://platform6.itch.io/"
+          icon={faItchIo}
+          aria={'Itch.io'}
         />
         <SocialIcon
           href="https://www.linkedin.com/in/garrettpconn/"
