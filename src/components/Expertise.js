@@ -43,7 +43,9 @@ const Expertise = () => {
     <Box bg={'#F4C3E9'} p={{ base: 2, md: 6 }} align={'center'} pb={8} px={5}>
       <Text mb={3}>
         KEY AREAS OF{' '}
-        <span style={{ color: '#9f037a', fontWeight: '600' }}>EXPERTISE</span>
+        <span style={{ color: 'brand.primary', fontWeight: '600' }}>
+          EXPERTISE
+        </span>
       </Text>
       {grid}
     </Box>

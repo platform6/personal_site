@@ -23,8 +23,7 @@ const SocialIcon = ({ href, icon, aria }) => (
 const Footer = () => {
   return (
     <Box
-      border={'2px solid purple'}
-      bg="#9f037a"
+      bg="brand.primary"
       color="white"
       py={{ base: 8, md: 4 }}
       mt={10}

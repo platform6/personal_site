@@ -74,14 +74,14 @@ const GameList = () => {
       <ButtonGroup spacing={4} mb={6} width="100%" justifyContent="center">
         <Button
           color={'white'}
-          bg={activeSheet === 'GameList' ? '#9f037a' : 'gray'}
+          bg={activeSheet === 'GameList' ? 'brand.primary' : 'gray'}
           onClick={() => handleSheetChange('GameList')}
         >
           Game List (Personal)
         </Button>
         <Button
           color={'white'}
-          bg={activeSheet === 'GameListInf' ? '#9f037a' : 'lightGray'}
+          bg={activeSheet === 'GameListInf' ? '' : 'lightGray'}
           onClick={() => handleSheetChange('GameListInf')}
         >
           Game List (Most Influential)
