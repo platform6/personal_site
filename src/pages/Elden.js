@@ -63,7 +63,7 @@ const Elden = () => {
           </Text>
           <br></br>
           <Link
-            color={'#9f037a'}
+            color={'brand.primary'}
             isExternal
             href={'https://eldenring.fanapis.com/'}
             aria-label={'link to elden ring fan api'}

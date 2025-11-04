@@ -5,7 +5,8 @@
     "text": "Learn more about my profesional background as a software engineer and my values surronding work and technology",
     "link": "/about-me",
     "img": "/resized/purpleBorder-480.webp",
-    "alt": "purple paint swirl"
+    "alt": "purple paint swirl",
+    "external": false
   },
   {
     "id": 2,
@@ -13,15 +14,17 @@
     "text": "A search UI project based on using the Elden Ring API as a data source.  An example of using an API to gather, sort, and filter data ",
     "link": "/elden",
     "img": "/resized/knight-480.webp",
-    "alt": "knight in shining armor"
+    "alt": "knight in shining armor",
+    "external": false
   },
   {
     "id": 3,
-    "heading": "Game Notes",
+    "heading": "Star Bucket: Game Notes",
     "text": "A place to store notes on games I've played.  I would like to use this as a way to practice my writing skills and to share my thoughts on the games I've played.",
-    "link": "https://looping.pika.page/",
+    "link": "https://starbucket.pika.page/",
     "img": "/resized/coin-480.webp",
-    "alt": "8 bit coins"
+    "alt": "8 bit coins",
+    "external": true
   },
   {
     "id": 5,
@@ -29,6 +32,7 @@
     "text": "Based on a disagreement between friends surronding a Rolling Stones article.  A challenge was cast to create two lists by a friend. One list being my personal list of all time greatest games. Another list of the most important games to the world.",
     "link": "/gamelist",
     "img": "/resized/game_controllers-480.webp",
-    "alt": "game controllers"
+    "alt": "game controllers",
+    "external": false
   }
 ]

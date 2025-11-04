@@ -25,6 +25,7 @@ const HomePage = () => {
           text={section.text}
           img={section.img}
           alt={section.alt}
+          external={section.external}
         />
       ))}
     </>

@@ -29,7 +29,9 @@ const TagSection = ({ selectedTag, onTagSelect }) => {
             key={item}
             _hover={{ bg: '#d756b9' }}
             onClick={() => onTagSelect(apiItems[item])}
-            background={selectedTag === apiItems[item] ? '#F4C3E9' : '#9f037a'}
+            background={
+              selectedTag === apiItems[item] ? '#F4C3E9' : 'brand.primary'
+            }
           >
             {item}
           </Button>
