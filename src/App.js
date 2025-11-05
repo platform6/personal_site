@@ -4,6 +4,8 @@ import Footer from './components/Footer';
 import Header from './components/Header';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { Progress } from '@chakra-ui/react';
+import { TestSupabasePage } from './pages/TestSupabasePage';
+import AdminPage from './pages/AdminPage';
 
 const Elden = lazy(() => import('./pages/Elden'));
 const HomePage = lazy(() => import('./pages/HomePage'));
@@ -22,6 +24,8 @@ function App() {
               <Route path="/elden" element={<Elden />} />
               <Route path="/about-me" element={<AboutMe />} />
               <Route path="/gamelist" element={<GameList />} />
+              <Route path="/test" element={<TestSupabasePage />} />
+              <Route path="/admin" element={<AdminPage />} />
             </Routes>
           </div>
           <Footer />
