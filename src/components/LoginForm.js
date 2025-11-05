@@ -46,6 +46,9 @@ export default function LoginForm({ onSuccess }) {
           </label>
           <input
             type="email"
+            name="email"
+            id="email"
+            autoComplete="username email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
@@ -65,6 +68,9 @@ export default function LoginForm({ onSuccess }) {
           </label>
           <input
             type="password"
+            name="password"
+            id="password"
+            autoComplete="current-password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
