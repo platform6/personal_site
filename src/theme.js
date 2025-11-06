@@ -3,8 +3,8 @@ import { extendTheme } from '@chakra-ui/react';
 
 const theme = extendTheme({
   fonts: {
-    heading: `'Josefin Sans', sans-serif`,
-    body: `'Josefin Sans', sans-serif`,
+    heading: `'Space Grotesk', sans-serif`,
+    body: `'Inter', sans-serif`,
   },
   styles: {
     global: {
@@ -16,7 +16,7 @@ const theme = extendTheme({
         MozOsxFontSmoothing: 'grayscale',
       },
       'h1, h2, h3, h4, h5, h6': {
-        fontFamily: `'Josefin Sans', sans-serif`,
+        fontFamily: `'Space Grotesk', sans-serif`,
         fontOpticalSizing: 'auto',
         fontWeight: 700,
         fontStyle: 'normal',
