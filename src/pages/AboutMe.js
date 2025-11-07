@@ -24,14 +24,13 @@ const ProfExp = () => {
         image="/assets/purpleBorder_horizontal.jpg"
         url="https://garrettconn.com"
       />
-      <Layout>
+      <Layout bg="isabelline.400">
         <Box
           display="flex"
-          // border={'1px solid red'}
           minH="100px"
           justifyContent="center"
           alignItems="center"
-          bg={'#D756B9'}
+          bg="hookersGreen.400"
         >
           <Heading fontSize={{ base: 'xl', md: 'xl' }} color={'white'}>
             PROFESSIONAL EXPERIENCE

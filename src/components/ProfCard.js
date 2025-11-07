@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Text, Flex } from '@chakra-ui/react';
+import { Box, Text, Flex, Wrap, WrapItem, Tag } from '@chakra-ui/react';
 import { Card, CardHeader, Heading, CardBody, List } from '@chakra-ui/react';
 import ListResp from './ListResp';
 
@@ -12,12 +12,7 @@ const ProfCard = ({
   responsibilities,
   technologies_used = [],
 }) => {
-  // console.log(technologies_used);
-  // const techTags = technologies_used.map((tech) => {
-  //   return <Box>{tech}</Box>;
-  // });
   return (
-    // <Box border={'3px dotted purple'} bg={'#F4C3E9'}>
     <Box mt={10}>
       <Card key={id} boxShadow="2xl">
         <CardHeader>
@@ -35,6 +30,23 @@ const ProfCard = ({
           <List spacing={5}>
             <ListResp data={responsibilities} />
           </List>
+          {/* tags */}
+          {technologies_used.length > 0 && (
+            <Box mt={4}>
+              <Text fontSize="sm" fontWeight="semibold" mb={2}>
+                Technologies:
+              </Text>
+              <Wrap spacing={2}>
+                {technologies_used.map((tech, index) => (
+                  <WrapItem key={index}>
+                    <Tag size="md" bg="lavenderWeb.400" color="blackBean.800">
+                      {tech}
+                    </Tag>
+                  </WrapItem>
+                ))}
+              </Wrap>
+            </Box>
+          )}
         </CardBody>
       </Card>
     </Box>

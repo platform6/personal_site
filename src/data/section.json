@@ -34,5 +34,14 @@
     "img": "/resized/game_controllers-480.webp",
     "alt": "game controllers",
     "external": false
+  },
+  {
+    "id": 6,
+    "heading": "Free Time 2025",
+    "text": "I tracked how I spent my free time in 2025 to see the relative ratios between all of my interests. A lot of this was commuting time, but also time I squeezed in on the weekends or random times throughout the week.",
+    "link": "/time_2025",
+    "img": "/resized/clocks-480.webp",
+    "alt": "",
+    "external": false
   }
 ]
