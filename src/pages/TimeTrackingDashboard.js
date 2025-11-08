@@ -14,6 +14,7 @@ import {
   Spinner,
   Text,
   useToast,
+  useBreakpointValue,
 } from '@chakra-ui/react';
 import {
   BarChart,
@@ -26,6 +27,7 @@ import {
   Tooltip,
   Legend,
   ResponsiveContainer,
+  Cell,
 } from 'recharts';
 import {
   getTimeEntries,
@@ -33,6 +35,9 @@ import {
 } from '../lib/supabase/timeEntries';
 import Layout from '../components/Layout';
 import MetaTags from '../components/MetaTags';
+import ColorSchemeSwitcher, {
+  colorSchemes,
+} from '../components/ColorSchemeSwitcher';
 
 const TimeTrackingDashboard = () => {
   const [loading, setLoading] = useState(true);
@@ -41,7 +46,24 @@ const TimeTrackingDashboard = () => {
   const [projectData, setProjectData] = useState([]);
   const [timelineData, setTimelineData] = useState([]);
   const [gameData, setGameData] = useState([]);
+  const [currentColorScheme, setCurrentColorScheme] = useState('original');
   const toast = useToast();
+
+  // Get current color scheme colors
+  const colors = colorSchemes[currentColorScheme];
+
+  // Responsive chart heights
+  const categoryChartHeight = useBreakpointValue({ base: 250, md: 300 });
+  const timelineChartHeight = useBreakpointValue({ base: 300, md: 400 });
+  const gameChartHeight = useBreakpointValue({ base: 350, md: 400 });
+
+  // Responsive font sizes
+  const xAxisFontSize = useBreakpointValue({ base: 10, md: 12 });
+  const yAxisFontSize = useBreakpointValue({ base: 10, md: 12 });
+  const smallXAxisFontSize = useBreakpointValue({ base: 9, md: 12 });
+  const xAxisHeight = useBreakpointValue({ base: 120, md: 100 });
+  const timelineXAxisHeight = useBreakpointValue({ base: 80, md: 100 });
+  const gameXAxisHeight = useBreakpointValue({ base: 100, md: 120 });
 
   useEffect(() => {
     loadData();
@@ -175,21 +197,34 @@ const TimeTrackingDashboard = () => {
         url="https://garrettconn.com/time-tracking"
       />
       <Layout>
-        <Container maxW="container.xl">
-          <Heading mb={8} color="blackBean.700">
-            Time Tracking Dashboard
+        <Container maxW="container.xl" px={{ base: 4, md: 6 }}>
+          <Heading
+            align="center"
+            mb={8}
+            color="blackBean.700"
+            fontSize={{ base: '2xl', md: '3xl', lg: '4xl' }}
+          >
+            Free Time - 2025
           </Heading>
 
           {/* Summary Cards */}
-          <SimpleGrid columns={{ base: 1, md: 2, lg: 4 }} spacing={6} mb={8}>
+          <SimpleGrid
+            columns={{ base: 1, sm: 2 }}
+            spacing={{ base: 4, md: 6 }}
+            mb={8}
+          >
             <Card>
               <CardBody>
                 <Stat>
-                  <StatLabel>Total Free Time</StatLabel>
-                  <StatNumber>
+                  <StatLabel fontSize={{ base: 'sm', md: 'md' }}>
+                    Total Free Time
+                  </StatLabel>
+                  <StatNumber fontSize={{ base: '2xl', md: '3xl' }}>
                     {summary?.totalDurationHours.toFixed(1)}
                   </StatNumber>
-                  <StatHelpText>{summary?.totalEntries} entries</StatHelpText>
+                  <StatHelpText fontSize={{ base: 'xs', md: 'sm' }}>
+                    {summary?.totalEntries} entries
+                  </StatHelpText>
                 </Stat>
               </CardBody>
             </Card>
@@ -197,36 +232,45 @@ const TimeTrackingDashboard = () => {
             <Card>
               <CardBody>
                 <Stat>
-                  <StatLabel>Categories</StatLabel>
-                  <StatNumber>{summary?.projects.length}</StatNumber>
-                  <StatHelpText>Active projects</StatHelpText>
+                  <StatLabel fontSize={{ base: 'sm', md: 'md' }}>
+                    Categories
+                  </StatLabel>
+                  <StatNumber fontSize={{ base: '2xl', md: '3xl' }}>
+                    {summary?.projects.length}
+                  </StatNumber>
+                  <StatHelpText fontSize={{ base: 'xs', md: 'sm' }}>
+                    Active projects
+                  </StatHelpText>
                 </Stat>
               </CardBody>
             </Card>
           </SimpleGrid>
 
           {/* Charts */}
-          <SimpleGrid columns={{ base: 1, lg: 1 }} spacing={6} mb={8}>
+          <SimpleGrid columns={{ base: 1 }} spacing={{ base: 4, md: 6 }} mb={8}>
             {/* Project Hours Chart */}
             <Card>
               <CardHeader>
-                <Heading size="md">Total Hours by Category</Heading>
+                <Heading size={{ base: 'sm', md: 'md' }}>
+                  Total Hours by Category
+                </Heading>
               </CardHeader>
               <CardBody>
-                <ResponsiveContainer width="100%" height={300}>
+                <ResponsiveContainer width="100%" height={categoryChartHeight}>
                   <BarChart data={projectData}>
                     <CartesianGrid strokeDasharray="3 3" />
                     <XAxis
                       dataKey="name"
-                      angle={-25}
+                      angle={-45}
                       textAnchor="end"
-                      height={100}
-                      fontSize={12}
+                      height={xAxisHeight}
+                      fontSize={xAxisFontSize}
+                      interval={0}
                     />
-                    <YAxis />
+                    <YAxis fontSize={yAxisFontSize} />
                     <Tooltip />
-                    <Legend />
-                    <Bar dataKey="hours" fill="#f9cff2" name="Hours" />
+                    <Legend wrapperStyle={{ fontSize: '14px' }} />
+                    <Bar dataKey="hours" fill={colors.chart1} name="Hours" />
                   </BarChart>
                 </ResponsiveContainer>
               </CardBody>
@@ -235,10 +279,12 @@ const TimeTrackingDashboard = () => {
             {/* Timeline Chart */}
             <Card>
               <CardHeader>
-                <Heading size="md">Free Time Per Month</Heading>
+                <Heading size={{ base: 'sm', md: 'md' }}>
+                  Free Time Per Month
+                </Heading>
               </CardHeader>
               <CardBody>
-                <ResponsiveContainer width="100%" height={400}>
+                <ResponsiveContainer width="100%" height={timelineChartHeight}>
                   <AreaChart data={timelineData}>
                     <defs>
                       <linearGradient
@@ -250,12 +296,12 @@ const TimeTrackingDashboard = () => {
                       >
                         <stop
                           offset="5%"
-                          stopColor="#f9cff2"
+                          stopColor={colors.gradient1}
                           stopOpacity={0.8}
                         />
                         <stop
                           offset="95%"
-                          stopColor="#f9cff2"
+                          stopColor={colors.gradient2}
                           stopOpacity={0.1}
                         />
                       </linearGradient>
@@ -265,18 +311,18 @@ const TimeTrackingDashboard = () => {
                       dataKey="month"
                       angle={-45}
                       textAnchor="end"
-                      height={100}
-                      fontSize={12}
+                      height={timelineXAxisHeight}
+                      fontSize={smallXAxisFontSize}
                       tickFormatter={(monthKey) => {
                         const [year, month] = monthKey.split('-');
                         const date = new Date(year, parseInt(month) - 1);
                         return date.toLocaleDateString('en-US', {
                           month: 'short',
-                          year: 'numeric',
+                          year: '2-digit',
                         });
                       }}
                     />
-                    <YAxis />
+                    <YAxis fontSize={yAxisFontSize} />
                     <Tooltip
                       labelFormatter={(monthKey) => {
                         const [year, month] = monthKey.split('-');
@@ -287,11 +333,11 @@ const TimeTrackingDashboard = () => {
                         });
                       }}
                     />
-                    <Legend />
+                    <Legend wrapperStyle={{ fontSize: '14px' }} />
                     <Area
                       type="monotone"
                       dataKey="hours"
-                      stroke="#607466"
+                      stroke={colors.chart3}
                       fillOpacity={1}
                       fill="url(#colorHours)"
                       name="Hours"
@@ -305,29 +351,43 @@ const TimeTrackingDashboard = () => {
             {gameData.length > 0 && (
               <Card>
                 <CardHeader>
-                  <Heading size="md">Hours by Video Game (Top 10)</Heading>
+                  <Heading size={{ base: 'sm', md: 'md' }}>
+                    Hours by Video Game (Top 10)
+                  </Heading>
                 </CardHeader>
                 <CardBody>
-                  <ResponsiveContainer width="100%" height={400}>
-                    <BarChart data={gameData} layout="horizontal">
+                  <ResponsiveContainer width="100%" height={gameChartHeight}>
+                    <BarChart data={gameData}>
                       <CartesianGrid strokeDasharray="3 3" />
                       <XAxis
-                        type="number"
-                        label={{
-                          value: 'Hours',
-                          position: 'insideBottom',
-                          offset: -5,
-                        }}
+                        dataKey="name"
+                        angle={-45}
+                        textAnchor="end"
+                        height={gameXAxisHeight}
+                        fontSize={smallXAxisFontSize}
+                        interval={0}
                       />
                       <YAxis
-                        type="category"
-                        dataKey="name"
-                        width={150}
-                        fontSize={12}
+                        fontSize={yAxisFontSize}
+                        label={{
+                          value: 'Hours',
+                          angle: -90,
+                          position: 'insideLeft',
+                          style: { fontSize: '12px' },
+                        }}
                       />
                       <Tooltip />
-                      <Legend />
-                      <Bar dataKey="hours" fill="#dae0f2" name="Hours" />
+                      <Legend wrapperStyle={{ fontSize: '14px' }} />
+                      <Bar dataKey="hours" name="Hours">
+                        {gameData.map((entry, index) => (
+                          <Cell
+                            key={`cell-${index}`}
+                            fill={
+                              colors.barColors[index % colors.barColors.length]
+                            }
+                          />
+                        ))}
+                      </Bar>
                     </BarChart>
                   </ResponsiveContainer>
                 </CardBody>
@@ -338,16 +398,24 @@ const TimeTrackingDashboard = () => {
           {/* Additional Info */}
           <Card>
             <CardHeader>
-              <Heading size="md">Summary</Heading>
+              <Heading size={{ base: 'sm', md: 'md' }}>Summary</Heading>
             </CardHeader>
             <CardBody>
-              <SimpleGrid columns={{ base: 1, md: 2 }} spacing={4}>
+              <SimpleGrid columns={{ base: 1 }} spacing={4}>
                 <Box>
-                  <Text fontWeight="semibold" mb={2}>
+                  <Text
+                    fontWeight="semibold"
+                    mb={2}
+                    fontSize={{ base: 'sm', md: 'md' }}
+                  >
                     Top Categories:
                   </Text>
                   {projectData.slice(0, 5).map((project, index) => (
-                    <Text key={index} fontSize="sm" color="gray.600">
+                    <Text
+                      key={index}
+                      fontSize={{ base: 'xs', md: 'sm' }}
+                      color="gray.600"
+                    >
                       • {project.name}: {project.hours}h
                     </Text>
                   ))}
@@ -356,6 +424,12 @@ const TimeTrackingDashboard = () => {
             </CardBody>
           </Card>
         </Container>
+
+        {/* Color Scheme Switcher */}
+        <ColorSchemeSwitcher
+          currentScheme={currentColorScheme}
+          onSchemeChange={setCurrentColorScheme}
+        />
       </Layout>
     </>
   );
