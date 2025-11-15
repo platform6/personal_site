@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import {
   Box,
   Container,
@@ -41,7 +41,6 @@ import {
   getTimeEntries,
   getTimeEntriesSummary,
 } from '../lib/supabase/timeEntries';
-import Layout from '../components/Layout';
 import MetaTags from '../components/MetaTags';
 import ColorSchemeSwitcher, {
   colorSchemes,
@@ -50,7 +49,6 @@ import ColorSchemeSwitcher, {
 const TimeTrackingDashboard = () => {
   const [loading, setLoading] = useState(true);
   const [summary, setSummary] = useState(null);
-  const [entries, setEntries] = useState([]);
   const [projectData, setProjectData] = useState([]);
   const [timelineData, setTimelineData] = useState([]);
   const [gameData, setGameData] = useState([]);
@@ -73,11 +71,7 @@ const TimeTrackingDashboard = () => {
   const timelineXAxisHeight = useBreakpointValue({ base: 80, md: 100 });
   const gameXAxisHeight = useBreakpointValue({ base: 100, md: 120 });
 
-  useEffect(() => {
-    loadData();
-  }, []);
-
-  const loadData = async () => {
+  const loadData = useCallback(async () => {
     try {
       setLoading(true);
 
@@ -87,7 +81,6 @@ const TimeTrackingDashboard = () => {
         getTimeEntriesSummary(),
       ]);
 
-      setEntries(entriesData);
       setSummary(summaryData);
 
       // Process data for charts
@@ -104,7 +97,11 @@ const TimeTrackingDashboard = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [toast]);
+
+  useEffect(() => {
+    loadData();
+  }, [loadData]);
 
   const processChartData = (entriesData, summaryData) => {
     // Process project hours data
