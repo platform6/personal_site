@@ -7,10 +7,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 const Expertise = () => {
   const exp = [
     { name: 'React', icon: faReact },
-    { name: 'Chakra UI', icon: faCube }, // No specific icon for Chakra UI, using a generic icon
-    { name: 'AWS', icon: faCloud }, // No specific icon for AWS, using a cloud icon
+    { name: 'Chakra UI', icon: faCube },
+    { name: 'AWS', icon: faCloud },
     { name: 'NodeJS', icon: faNodeJs },
-    { name: 'UiPath', icon: faRobot }, // No specific icon for UiPath, using a robot icon
+    { name: 'UiPath', icon: faRobot },
     { name: 'Java', icon: faJava },
   ];
 
@@ -40,7 +40,13 @@ const Expertise = () => {
   );
 
   return (
-    <Box bg={'#F4C3E9'} p={{ base: 2, md: 6 }} align={'center'} pb={8} px={5}>
+    <Box
+      bg="lavenderWeb.400"
+      p={{ base: 2, md: 6 }}
+      align={'center'}
+      pb={8}
+      px={5}
+    >
       <Text mb={3}>
         KEY AREAS OF{' '}
         <span style={{ color: 'brand.primary', fontWeight: '600' }}>

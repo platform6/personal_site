@@ -26,7 +26,6 @@ const Footer = () => {
       bg="brand.primary"
       color="white"
       py={{ base: 8, md: 4 }}
-      mt={10}
       minHeight={'127px'}
     >
       <HStack justify="center" align="center" justifyContent={'space-evenly'}>
