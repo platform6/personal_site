@@ -28,6 +28,8 @@ import {
   Bar,
   AreaChart,
   Area,
+  PieChart,
+  Pie,
   XAxis,
   YAxis,
   CartesianGrid,
@@ -52,16 +54,40 @@ const TimeTrackingDashboard = () => {
   const [projectData, setProjectData] = useState([]);
   const [timelineData, setTimelineData] = useState([]);
   const [gameData, setGameData] = useState([]);
+  const [platformData, setPlatformData] = useState([]);
   const [currentColorScheme, setCurrentColorScheme] = useState('original');
   const toast = useToast();
 
   // Get current color scheme colors
   const colors = colorSchemes[currentColorScheme];
 
+  // Helper function to convert hours to hh:mm:ss format
+  const formatHoursToTime = (hours) => {
+    const totalSeconds = Math.round(hours * 3600);
+    const h = Math.floor(totalSeconds / 3600);
+    const m = Math.floor((totalSeconds % 3600) / 60);
+    const s = totalSeconds % 60;
+    return `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+  };
+
   // Responsive chart heights
   const categoryChartHeight = useBreakpointValue({ base: 250, md: 300 });
   const timelineChartHeight = useBreakpointValue({ base: 300, md: 400 });
   const gameChartHeight = useBreakpointValue({ base: 350, md: 400 });
+  const pieChartHeight = useBreakpointValue({ base: 500, md: 450 });
+
+  // Responsive legend settings
+  const legendLayout = useBreakpointValue({
+    base: 'horizontal',
+    md: 'vertical',
+  });
+  const legendAlign = useBreakpointValue({ base: 'center', md: 'left' });
+  const legendVerticalAlign = useBreakpointValue({
+    base: 'bottom',
+    md: 'middle',
+  });
+  const legendPaddingLeft = useBreakpointValue({ base: '0px', md: '20px' });
+  const legendLineHeight = useBreakpointValue({ base: '24px', md: '50px' });
 
   // Responsive font sizes
   const xAxisFontSize = useBreakpointValue({ base: 10, md: 12 });
@@ -175,6 +201,34 @@ const TimeTrackingDashboard = () => {
       .sort((a, b) => b.hours - a.hours);
 
     setGameData(gameChartData);
+
+    // Process platform/tag hours data (for Playing Video Games entries)
+    const platformHours = {};
+    entriesData
+      .filter((entry) => {
+        const project = entry.project || '';
+        return project === 'Playing Video Games';
+      })
+      .forEach((entry) => {
+        // Tags is an array, get the first tag (based on query results, each entry has exactly one tag)
+        const platform =
+          entry.tags && entry.tags.length > 0 ? entry.tags[0] : 'Unknown';
+        const hours = entry.duration_seconds / 3600;
+
+        if (!platformHours[platform]) {
+          platformHours[platform] = 0;
+        }
+        platformHours[platform] += hours;
+      });
+
+    const platformChartData = Object.entries(platformHours)
+      .map(([name, hours]) => ({
+        name,
+        hours: parseFloat(hours.toFixed(2)),
+      }))
+      .sort((a, b) => b.hours - a.hours);
+
+    setPlatformData(platformChartData);
   };
 
   if (loading) {
@@ -198,10 +252,11 @@ const TimeTrackingDashboard = () => {
         keywords="time tracking, productivity, analytics"
         url="https://garrettconn.com/time-tracking"
       />
-      <Container maxW="container.xl" px={{ base: 2, md: 6 }}>
+      <Container maxW="container.xl" px={{ base: 4, md: 6 }}>
         <Heading
           align="center"
-          m={8}
+          mx={{ base: 2, md: 8 }}
+          my={{ base: 6, md: 8 }}
           color="blackBean.700"
           fontSize={{ base: '2xl', md: '3xl', lg: '4xl' }}
         >
@@ -214,14 +269,14 @@ const TimeTrackingDashboard = () => {
           spacing={{ base: 4, md: 6 }}
           mb={8}
         >
-          <Card>
+          <Card boxShadow={'2xl'}>
             <CardBody>
               <Stat>
                 <StatLabel fontSize={{ base: 'sm', md: 'md' }}>
                   Hobby Time
                 </StatLabel>
                 <StatNumber fontSize={{ base: '2xl', md: '3xl' }}>
-                  {summary?.totalDurationHours.toFixed(1)} hours
+                  {formatHoursToTime(summary?.totalDurationHours || 0)}
                 </StatNumber>
                 <StatHelpText fontSize={{ base: 'xs', md: 'sm' }}>
                   {summary?.totalEntries} entries
@@ -230,7 +285,7 @@ const TimeTrackingDashboard = () => {
             </CardBody>
           </Card>
 
-          <Card>
+          <Card boxShadow={'2xl'}>
             <CardBody>
               <Stat>
                 <StatLabel fontSize={{ base: 'sm', md: 'md' }}>
@@ -250,159 +305,206 @@ const TimeTrackingDashboard = () => {
         {/* Charts */}
         <SimpleGrid columns={{ base: 1 }} spacing={{ base: 4, md: 6 }} mb={8}>
           {/* Project Hours Chart */}
-          <Card>
+          <Card boxShadow={'2xl'}>
             <CardHeader>
               <Heading size={{ base: 'sm', md: 'md' }}>
-                Total Hours by Category
+                Total Time by Category
               </Heading>
             </CardHeader>
-            <CardBody>
-              <ResponsiveContainer width="100%" height={categoryChartHeight}>
-                <BarChart data={projectData}>
-                  <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis
-                    dataKey="name"
-                    angle={-45}
-                    textAnchor="end"
-                    height={xAxisHeight}
-                    fontSize={xAxisFontSize}
-                    interval={0}
-                  />
-                  <YAxis fontSize={yAxisFontSize} />
-                  <Tooltip />
-                  <Legend wrapperStyle={{ fontSize: '14px' }} />
-                  <Bar
-                    dataKey="hours"
-                    fill={colors.chart1}
-                    name="Hours"
-                    minPointSize={5}
+            <CardBody px={{ base: 0, md: 4 }} overflow="hidden">
+              <Box width="100%" overflowX="auto">
+                <ResponsiveContainer width="100%" height={categoryChartHeight}>
+                  <BarChart
+                    data={projectData}
+                    margin={{
+                      top: 20,
+                      right: 10,
+                      left: 0,
+                      bottom: 5,
+                    }}
                   >
-                    <LabelList
-                      dataKey="hours"
-                      position="top"
-                      fontSize={xAxisFontSize}
-                    />
-                  </Bar>
-                </BarChart>
-              </ResponsiveContainer>
-            </CardBody>
-          </Card>
-
-          {/* Timeline Chart */}
-          <Card>
-            <CardHeader>
-              <Heading size={{ base: 'sm', md: 'md' }}>
-                Free Time Per Month
-              </Heading>
-            </CardHeader>
-            <CardBody>
-              <ResponsiveContainer width="100%" height={timelineChartHeight}>
-                <AreaChart data={timelineData}>
-                  <defs>
-                    <linearGradient id="colorHours" x1="0" y1="0" x2="0" y2="1">
-                      <stop
-                        offset="5%"
-                        stopColor={colors.gradient1}
-                        stopOpacity={0.8}
-                      />
-                      <stop
-                        offset="95%"
-                        stopColor={colors.gradient2}
-                        stopOpacity={0.1}
-                      />
-                    </linearGradient>
-                  </defs>
-                  <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis
-                    dataKey="month"
-                    angle={-45}
-                    textAnchor="end"
-                    height={timelineXAxisHeight}
-                    fontSize={smallXAxisFontSize}
-                    tickFormatter={(monthKey) => {
-                      const [year, month] = monthKey.split('-');
-                      const date = new Date(year, parseInt(month) - 1);
-                      return date.toLocaleDateString('en-US', {
-                        month: 'short',
-                        year: '2-digit',
-                      });
-                    }}
-                  />
-                  <YAxis fontSize={yAxisFontSize} />
-                  <Tooltip
-                    labelFormatter={(monthKey) => {
-                      const [year, month] = monthKey.split('-');
-                      const date = new Date(year, parseInt(month) - 1);
-                      return date.toLocaleDateString('en-US', {
-                        month: 'long',
-                        year: 'numeric',
-                      });
-                    }}
-                  />
-                  <Legend wrapperStyle={{ fontSize: '14px' }} />
-                  <Area
-                    type="monotone"
-                    dataKey="hours"
-                    stroke={colors.chart3}
-                    fillOpacity={1}
-                    fill="url(#colorHours)"
-                    name="Hours"
-                  />
-                </AreaChart>
-              </ResponsiveContainer>
-            </CardBody>
-          </Card>
-
-          {/* Video Game Hours Chart */}
-          {gameData.length > 0 && (
-            <Card>
-              <CardHeader>
-                <Heading size={{ base: 'sm', md: 'md' }}>
-                  Hours by Video Game (Top 10)
-                </Heading>
-              </CardHeader>
-              <CardBody>
-                <ResponsiveContainer width="100%" height={gameChartHeight}>
-                  <BarChart data={gameData}>
                     <CartesianGrid strokeDasharray="3 3" />
                     <XAxis
                       dataKey="name"
                       angle={-45}
                       textAnchor="end"
-                      height={gameXAxisHeight}
-                      fontSize={smallXAxisFontSize}
+                      height={xAxisHeight}
+                      fontSize={xAxisFontSize}
                       interval={0}
                     />
                     <YAxis
                       fontSize={yAxisFontSize}
-                      label={{
-                        value: 'Hours',
-                        angle: -90,
-                        position: 'insideLeft',
-                        style: { fontSize: '12px' },
-                      }}
+                      tickFormatter={(value) => formatHoursToTime(value)}
                     />
-                    <Tooltip />
+                    <Tooltip formatter={(value) => formatHoursToTime(value)} />
                     <Legend wrapperStyle={{ fontSize: '14px' }} />
-                    <Bar dataKey="hours" name="Hours">
-                      {gameData.map((entry, index) => (
-                        <Cell
-                          key={`cell-${index}`}
-                          fill={
-                            colors.barColors[index % colors.barColors.length]
-                          }
-                        />
-                      ))}
+                    <Bar
+                      dataKey="hours"
+                      fill={colors.chart1}
+                      name="Time"
+                      minPointSize={5}
+                    >
+                      <LabelList
+                        dataKey="hours"
+                        position="top"
+                        fontSize={xAxisFontSize}
+                        formatter={(value) => formatHoursToTime(value)}
+                      />
                     </Bar>
                   </BarChart>
                 </ResponsiveContainer>
+              </Box>
+            </CardBody>
+          </Card>
+
+          {/* Timeline Chart */}
+          <Card boxShadow={'2xl'}>
+            <CardHeader>
+              <Heading size={{ base: 'sm', md: 'md' }}>
+                Free Time Per Month
+              </Heading>
+            </CardHeader>
+            <CardBody px={{ base: 0, md: 4 }} overflow="hidden">
+              <Box width="100%" overflowX="auto">
+                <ResponsiveContainer width="100%" height={timelineChartHeight}>
+                  <AreaChart
+                    data={timelineData}
+                    margin={{
+                      top: 10,
+                      right: 10,
+                      left: 0,
+                      bottom: 5,
+                    }}
+                  >
+                    <defs>
+                      <linearGradient
+                        id="colorHours"
+                        x1="0"
+                        y1="0"
+                        x2="0"
+                        y2="1"
+                      >
+                        <stop
+                          offset="5%"
+                          stopColor={colors.gradient1}
+                          stopOpacity={0.8}
+                        />
+                        <stop
+                          offset="95%"
+                          stopColor={colors.gradient2}
+                          stopOpacity={0.1}
+                        />
+                      </linearGradient>
+                    </defs>
+                    <CartesianGrid strokeDasharray="3 3" />
+                    <XAxis
+                      dataKey="month"
+                      angle={-45}
+                      textAnchor="end"
+                      height={timelineXAxisHeight}
+                      fontSize={smallXAxisFontSize}
+                      tickFormatter={(monthKey) => {
+                        const [year, month] = monthKey.split('-');
+                        const date = new Date(year, parseInt(month) - 1);
+                        return date.toLocaleDateString('en-US', {
+                          month: 'short',
+                          year: '2-digit',
+                        });
+                      }}
+                    />
+                    <YAxis
+                      fontSize={yAxisFontSize}
+                      tickFormatter={(value) => formatHoursToTime(value)}
+                    />
+                    <Tooltip
+                      formatter={(value) => formatHoursToTime(value)}
+                      labelFormatter={(monthKey) => {
+                        const [year, month] = monthKey.split('-');
+                        const date = new Date(year, parseInt(month) - 1);
+                        return date.toLocaleDateString('en-US', {
+                          month: 'long',
+                          year: 'numeric',
+                        });
+                      }}
+                    />
+                    <Legend wrapperStyle={{ fontSize: '14px' }} />
+                    <Area
+                      type="monotone"
+                      dataKey="hours"
+                      stroke={colors.chart3}
+                      fillOpacity={1}
+                      fill="url(#colorHours)"
+                      name="Time"
+                    />
+                  </AreaChart>
+                </ResponsiveContainer>
+              </Box>
+            </CardBody>
+          </Card>
+
+          {/* Video Game Hours Chart */}
+          {gameData.length > 0 && (
+            <Card boxShadow={'2xl'}>
+              <CardHeader>
+                <Heading size={{ base: 'sm', md: 'md' }}>
+                  Time by Video Game (Top 10)
+                </Heading>
+              </CardHeader>
+              <CardBody px={{ base: 0, md: 4 }} overflow="hidden">
+                <Box width="100%" overflowX="auto">
+                  <ResponsiveContainer width="100%" height={gameChartHeight}>
+                    <BarChart
+                      data={gameData}
+                      margin={{
+                        top: 10,
+                        right: 10,
+                        left: 0,
+                        bottom: 5,
+                      }}
+                    >
+                      <CartesianGrid strokeDasharray="3 3" />
+                      <XAxis
+                        dataKey="name"
+                        angle={-45}
+                        textAnchor="end"
+                        height={gameXAxisHeight}
+                        fontSize={smallXAxisFontSize}
+                        interval={0}
+                      />
+                      <YAxis
+                        fontSize={yAxisFontSize}
+                        tickFormatter={(value) => formatHoursToTime(value)}
+                        label={{
+                          value: 'Time',
+                          angle: -90,
+                          position: 'insideLeft',
+                          style: { fontSize: '12px' },
+                        }}
+                      />
+                      <Tooltip
+                        formatter={(value) => formatHoursToTime(value)}
+                      />
+                      <Legend wrapperStyle={{ fontSize: '14px' }} />
+                      <Bar dataKey="hours" name="Time">
+                        {gameData.map((entry, index) => (
+                          <Cell
+                            key={`cell-${index}`}
+                            fill={
+                              colors.barColors[index % colors.barColors.length]
+                            }
+                          />
+                        ))}
+                      </Bar>
+                    </BarChart>
+                  </ResponsiveContainer>
+                </Box>
               </CardBody>
             </Card>
           )}
         </SimpleGrid>
 
         {/* Additional Info */}
-        <Card>
+        <Card mb={5} boxShadow={'2xl'}>
           <CardHeader>
             <Heading size={{ base: 'sm', md: 'md' }}>Summary</Heading>
           </CardHeader>
@@ -422,7 +524,7 @@ const TimeTrackingDashboard = () => {
                     fontSize={{ base: 'xs', md: 'sm' }}
                     color="gray.600"
                   >
-                    • {project.name}: {project.hours}h
+                    • {project.name}: {formatHoursToTime(project.hours)}
                   </Text>
                 ))}
               </Box>
@@ -431,13 +533,15 @@ const TimeTrackingDashboard = () => {
         </Card>
         {/* Video Games List */}
         {gameData.length > 0 && (
-          <>
-            <TableContainer>
-              <Table variant="simple" size={{ base: 'sm', md: 'md' }}>
-                <Thead>
+          <SimpleGrid columns={{ base: 1, md: 2 }} spacing={{ base: 4, md: 6 }}>
+            <TableContainer overflowX="auto">
+              <Table variant="striped" size={{ base: 'sm', md: 'md' }}>
+                <Thead bg="blackBean.700">
                   <Tr>
-                    <Th>Game</Th>
-                    <Th isNumeric>Hours</Th>
+                    <Th color="white">Game</Th>
+                    <Th isNumeric color="white">
+                      Time
+                    </Th>
                   </Tr>
                 </Thead>
                 <Tbody>
@@ -447,19 +551,24 @@ const TimeTrackingDashboard = () => {
                       <Tr key={index}>
                         <Td fontSize={{ base: 'xs', md: 'sm' }}>{game.name}</Td>
                         <Td isNumeric fontSize={{ base: 'xs', md: 'sm' }}>
-                          {game.hours}
+                          {formatHoursToTime(game.hours)}
                         </Td>
                       </Tr>
                     ))}
                 </Tbody>
               </Table>
             </TableContainer>
-            <TableContainer display={{ base: 'none', md: 'block' }}>
-              <Table variant="simple" size={{ base: 'sm', md: 'md' }}>
-                <Thead>
+            <TableContainer overflowX="auto">
+              <Table variant="striped" size={{ base: 'sm', md: 'md' }}>
+                <Thead
+                  bg="blackBean.700"
+                  display={{ base: 'none', md: 'table-header-group' }}
+                >
                   <Tr>
-                    <Th>Game</Th>
-                    <Th isNumeric>Hours</Th>
+                    <Th color="white">Game</Th>
+                    <Th isNumeric color="white">
+                      Time
+                    </Th>
                   </Tr>
                 </Thead>
                 <Tbody>
@@ -469,14 +578,87 @@ const TimeTrackingDashboard = () => {
                       <Tr key={index}>
                         <Td fontSize={{ base: 'xs', md: 'sm' }}>{game.name}</Td>
                         <Td isNumeric fontSize={{ base: 'xs', md: 'sm' }}>
-                          {game.hours}
+                          {formatHoursToTime(game.hours)}
                         </Td>
                       </Tr>
                     ))}
                 </Tbody>
               </Table>
             </TableContainer>
-          </>
+          </SimpleGrid>
+        )}
+
+        {/* Platform Pie Chart */}
+        {platformData.length > 0 && (
+          <Box width={{ base: '100%', md: '50%' }} mx="auto">
+            <Card my={5} boxShadow={'2xl'}>
+              <CardHeader>
+                <Heading size={{ base: 'sm', md: 'md' }} align="center">
+                  Time by Platform
+                </Heading>
+              </CardHeader>
+              <CardBody px={{ base: 2, md: 4 }}>
+                <Box
+                  width="100%"
+                  display="flex"
+                  justifyContent="center"
+                  sx={{
+                    '& .recharts-legend-item-text': {
+                      color: 'black !important',
+                    },
+                  }}
+                >
+                  <ResponsiveContainer width="100%" height={pieChartHeight}>
+                    <PieChart>
+                      <Pie
+                        data={platformData}
+                        dataKey="hours"
+                        nameKey="name"
+                        cx="50%"
+                        cy="50%"
+                        innerRadius="60%"
+                        outerRadius="90%"
+                        cornerRadius="50%"
+                        paddingAngle={5}
+                        label={false}
+                      >
+                        {platformData.map((entry, index) => (
+                          <Cell
+                            key={`cell-${index}`}
+                            fill={
+                              colors.barColors[index % colors.barColors.length]
+                            }
+                          />
+                        ))}
+                      </Pie>
+                      <Tooltip
+                        formatter={(value, name, props) => [
+                          formatHoursToTime(value),
+                          props.payload.name,
+                        ]}
+                      />
+                      <Legend
+                        layout={legendLayout}
+                        align={legendAlign}
+                        verticalAlign={legendVerticalAlign}
+                        formatter={(value, entry) =>
+                          `${value}: ${formatHoursToTime(entry.payload.hours)}`
+                        }
+                        wrapperStyle={{
+                          fontSize: '14px',
+                          color: '#000000',
+                          paddingLeft: legendPaddingLeft,
+                          lineHeight: legendLineHeight,
+                        }}
+                        contentStyle={{ color: '#000000' }}
+                        iconType="circle"
+                      />
+                    </PieChart>
+                  </ResponsiveContainer>
+                </Box>
+              </CardBody>
+            </Card>
+          </Box>
         )}
       </Container>
 
