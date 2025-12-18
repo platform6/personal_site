@@ -8,25 +8,31 @@ import {
   CardHeader,
   CardBody,
   Spinner,
-  Text,
   useToast,
+  useBreakpointValue,
+  Flex,
+  Stack,
+  StackDivider,
+  Text,
 } from '@chakra-ui/react';
 import {
   getTimeEntries,
   getTimeEntriesSummary,
 } from '../lib/supabase/timeEntries';
 import MetaTags from '../components/MetaTags';
-import ColorSchemeSwitcher, {
-  colorSchemes,
-} from '../components/ColorSchemeSwitcher';
 import SummaryCard from '../components/dashboard/SummaryCard';
 import ChartCard from '../components/dashboard/ChartCard';
-import CategoryBarChart from '../components/dashboard/CategoryBarChart';
+import CategoryPieChart from '../components/dashboard/CategoryPieChart';
 import TimelineAreaChart from '../components/dashboard/TimelineAreaChart';
 import GameBarChart from '../components/dashboard/GameBarChart';
 import PlatformPieChart from '../components/dashboard/PlatformPieChart';
 import GameDataTable from '../components/dashboard/GameDataTable';
-import { formatHoursToTime } from '../utils/timeFormatting';
+import {
+  formatHoursToTime,
+  formatHoursToStructured,
+} from '../utils/timeFormatting';
+import compGames from '../data/2025_comp_games.json';
+import introText from '../data/dash_intro.json';
 
 const TimeTrackingDashboard = () => {
   const [loading, setLoading] = useState(true);
@@ -38,10 +44,44 @@ const TimeTrackingDashboard = () => {
   const [gameDevData, setGameDevData] = useState([]);
   const [artDrawingData, setArtDrawingData] = useState([]);
   const [professionalDevData, setProfessionalDevData] = useState([]);
-  const [currentColorScheme, setCurrentColorScheme] = useState('original');
   const toast = useToast();
+  const completedGamesColumns = useBreakpointValue({ base: 1, md: 3 });
 
-  const colors = colorSchemes[currentColorScheme];
+  // Original color scheme
+  const colors = {
+    chart1: '#f9cff2', // mimiPink
+    chart2: '#dae0f2', // lavenderWeb
+    chart3: '#607466', // hookersGreen
+    gradient1: '#f9cff2',
+    gradient2: '#f9cff2',
+    barColors: [
+      '#f9cff2',
+      '#dae0f2',
+      '#607466',
+      '#efb5b8',
+      '#9eaea3',
+      '#f2edeb',
+      '#e1e6f4',
+      '#fad7f4',
+    ],
+  };
+
+  // Helper function to render pie chart cards
+  const renderPieChartCard = (title, data) => {
+    if (data.length === 0) return null;
+    return (
+      <Card boxShadow="dark-lg">
+        <CardHeader>
+          <Heading size={{ base: 'sm', md: 'md' }} align="center">
+            {title}
+          </Heading>
+        </CardHeader>
+        <CardBody px={{ base: 2, md: 4 }}>
+          <PlatformPieChart data={data} barColors={colors.barColors} />
+        </CardBody>
+      </Card>
+    );
+  };
 
   const loadData = useCallback(async () => {
     try {
@@ -271,7 +311,12 @@ const TimeTrackingDashboard = () => {
         keywords="time tracking, productivity, analytics"
         url="https://garrettconn.com/time-tracking"
       />
-      <Container maxW="container.xl" px={{ base: 4, md: 6 }}>
+      <Container
+        maxW="container.xl"
+        px={{ base: 4, md: 6 }}
+        py={{ base: 4, md: 6 }}
+        width={{ base: '100%', md: '90vw' }}
+      >
         <Heading
           align="center"
           mx={{ base: 2, md: 8 }}
@@ -281,23 +326,143 @@ const TimeTrackingDashboard = () => {
         >
           Hobby Time - 2025
         </Heading>
+        <Card boxShadow={'dark-lg'} mb={4}>
+          <CardHeader>
+            <Heading size={{ base: 'sm', md: 'md' }} align="center">
+              Why all this then?
+            </Heading>
+          </CardHeader>
+          <CardBody
+            mx={{ base: '5', md: '20' }}
+            mb={{ base: '5', md: '10' }}
+            opacity={0}
+            animation="fadeIn 1s ease-in forwards"
+            sx={{
+              '@keyframes fadeIn': {
+                '0%': {
+                  opacity: 0,
+                  transform: 'translatey(30px)',
+                },
+                '100%': {
+                  opacity: 1,
+                  transform: 'translatey(0)',
+                },
+              },
+            }}
+          >
+            <Text whiteSpace="pre-wrap">{introText.text}</Text>
+          </CardBody>
+        </Card>
 
         {/* Summary Cards */}
         <SimpleGrid
-          columns={{ base: 1, sm: 2 }}
-          spacing={{ base: 4, md: 6 }}
+          columns={{ base: 1, md: 2 }}
+          spacing={{ base: 4, md: 4 }}
           mb={8}
         >
+          <Card boxShadow={'dark-lg'}>
+            <CardHeader>
+              <Heading size={{ base: 'sm', md: 'md' }} align="center">
+                Hobbies
+              </Heading>
+            </CardHeader>
+            <CardBody>
+              <Box fontSize={{ base: 'sm', md: 'm', lg: 'xl' }}>
+                {projectData.map((project, index) => {
+                  const time = formatHoursToStructured(project.hours);
+                  return (
+                    <Flex key={index}>
+                      <Box flex="1" fontWeight="bold">
+                        {project.name}
+                      </Box>
+                      <Flex
+                        gap={1}
+                        justifyContent={'flex-end'}
+                        fontVariantNumeric="tabular-nums"
+                      >
+                        <Flex minW="3ch" justifyContent="flex-end">
+                          <Text>{time.hasHours ? time.hours : ''}</Text>
+                        </Flex>
+                        <Text minW="1ch">{time.hasHours ? 'h' : ''}</Text>
+                        <Flex minW="3ch" justifyContent="flex-end">
+                          <Text>{time.minutes}</Text>
+                        </Flex>
+                        <Text minW="1ch">m</Text>
+                        <Flex minW="3ch" justifyContent="flex-end">
+                          <Text>{time.seconds}</Text>
+                        </Flex>
+                        <Text minW="1ch">s</Text>
+                      </Flex>
+                    </Flex>
+                  );
+                })}
+              </Box>
+            </CardBody>
+          </Card>
           <SummaryCard
-            label="Hobby Time"
-            value={formatHoursToTime(summary?.totalDurationHours || 0)}
-            helpText={`${summary?.totalEntries} entries`}
+            stats={[
+              {
+                label: 'Total Hobby Time',
+                value: formatHoursToTime(
+                  summary?.totalDurationHours || 0,
+                  true
+                ),
+              },
+              {
+                label: 'Active Hobbies',
+                value: summary?.projects.length,
+              },
+              {
+                label: 'Total Entries',
+                value: summary?.totalEntries,
+              },
+              {
+                label: 'Games Completed',
+                value: compGames?.length,
+              },
+              {
+                label: 'Games Played',
+                value: gameData.length,
+              },
+            ]}
           />
-          <SummaryCard
-            label="Categories"
-            value={summary?.projects.length}
-            helpText="Active projects"
-          />
+          <Card boxShadow="dark-lg">
+            <CardHeader>
+              <Heading size="md">Completed Games</Heading>
+            </CardHeader>
+            <SimpleGrid
+              columns={{ base: 1, md: 4 }}
+              spacing={{ base: 0, md: 3 }}
+            >
+              {(() => {
+                const columns = completedGamesColumns || 1;
+                const itemsPerColumn = Math.ceil(compGames.length / columns);
+                return Array.from({ length: columns }, (_, colIndex) => {
+                  const startIdx = colIndex * itemsPerColumn;
+                  const columnGames = compGames.slice(
+                    startIdx,
+                    startIdx + itemsPerColumn
+                  );
+                  if (columnGames.length === 0) return null;
+                  return (
+                    <CardBody key={colIndex}>
+                      <Stack divider={<StackDivider />} spacing="4">
+                        {columnGames.map((game, index) => (
+                          <Box key={index}>
+                            <Text fontSize="sm">{game.name}</Text>
+                          </Box>
+                        ))}
+                      </Stack>
+                    </CardBody>
+                  );
+                });
+              })()}
+            </SimpleGrid>
+            {/* Project Hours Chart */}
+          </Card>
+          <ChartCard title="Total Time by Category">
+            <CategoryPieChart data={projectData} barColors={colors.barColors} />
+          </ChartCard>
         </SimpleGrid>
 
         {/* Charts */}
@@ -306,13 +471,8 @@ const TimeTrackingDashboard = () => {
           spacing={{ base: 4, md: 6 }}
           mb={8}
         >
-          {/* Project Hours Chart */}
-          <ChartCard title="Total Time by Category">
-            <CategoryBarChart data={projectData} barColors={colors.barColors} />
-          </ChartCard>
-
           {/* Timeline Chart */}
-          <ChartCard title="Free Time Per Month">
+          <ChartCard title="Hobby Time Per Month">
             <TimelineAreaChart
               data={timelineData}
               gradientColor1={colors.gradient1}
@@ -320,118 +480,29 @@ const TimeTrackingDashboard = () => {
               lineColor={colors.chart3}
             />
           </ChartCard>
-        </SimpleGrid>
 
-        {/* Charts */}
-        <SimpleGrid
-          columns={{ base: 1, md: 2 }}
-          spacing={{ base: 4, md: 6 }}
-          mb={8}
-        >
           {/* Video Game Hours Chart */}
           {gameData.length > 0 && (
             <ChartCard title="Time by Video Game (Top 10)">
               <GameBarChart data={gameData} barColors={colors.barColors} />
             </ChartCard>
           )}
-          {/* Platform Pie Chart */}
-          {platformData.length > 0 && (
-            <Card boxShadow={'2xl'}>
-              <CardHeader>
-                <Heading size={{ base: 'sm', md: 'md' }} align="center">
-                  Time by Platform
-                </Heading>
-              </CardHeader>
-              <CardBody px={{ base: 2, md: 4 }}>
-                <PlatformPieChart
-                  data={platformData}
-                  barColors={colors.barColors}
-                />
-              </CardBody>
-            </Card>
-          )}
-          {/* Game Dev Pie Chart */}
-          {gameDevData.length > 0 && (
-            <Card boxShadow={'2xl'}>
-              <CardHeader>
-                <Heading size={{ base: 'sm', md: 'md' }} align="center">
-                  Game Dev Tasks
-                </Heading>
-              </CardHeader>
-              <CardBody px={{ base: 2, md: 4 }}>
-                <PlatformPieChart
-                  data={gameDevData}
-                  barColors={colors.barColors}
-                />
-              </CardBody>
-            </Card>
-          )}
-          {/* Art/Drawing Pie Chart */}
-          {artDrawingData.length > 0 && (
-            <Card boxShadow={'2xl'}>
-              <CardHeader>
-                <Heading size={{ base: 'sm', md: 'md' }} align="center">
-                  Art/Drawing Tasks
-                </Heading>
-              </CardHeader>
-              <CardBody px={{ base: 2, md: 4 }}>
-                <PlatformPieChart
-                  data={artDrawingData}
-                  barColors={colors.barColors}
-                />
-              </CardBody>
-            </Card>
-          )}
-          {/* Coding Pie Chart */}
-          {professionalDevData.length > 0 && (
-            <Card boxShadow={'2xl'}>
-              <CardHeader>
-                <Heading size={{ base: 'sm', md: 'md' }} align="center">
-                  Coding Tasks
-                </Heading>
-              </CardHeader>
-              <CardBody px={{ base: 2, md: 4 }}>
-                <PlatformPieChart
-                  data={professionalDevData}
-                  barColors={colors.barColors}
-                />
-              </CardBody>
-            </Card>
-          )}
+          {renderPieChartCard('Time by Platform', platformData)}
+          {renderPieChartCard('Game Dev', gameDevData)}
+          {renderPieChartCard('Art/Drawing', artDrawingData)}
+          {renderPieChartCard('Coding', professionalDevData)}
         </SimpleGrid>
 
-        {/* Summary Card */}
-        <Card mb={5} boxShadow={'2xl'}>
-          <CardHeader>
-            <Heading size={{ base: 'sm', md: 'md' }}>Summary</Heading>
-          </CardHeader>
-          <CardBody>
-            <SimpleGrid columns={{ base: 1 }} spacing={4}>
-              <Box>
-                <Text
-                  fontWeight="semibold"
-                  mb={2}
-                  fontSize={{ base: 'sm', md: 'md' }}
-                >
-                  Top Categories:
-                </Text>
-                {projectData.slice(0, 5).map((project, index) => (
-                  <Text
-                    key={index}
-                    fontSize={{ base: 'xs', md: 'sm' }}
-                    color="gray.600"
-                  >
-                    • {project.name}: {formatHoursToTime(project.hours)}
-                  </Text>
-                ))}
-              </Box>
-            </SimpleGrid>
-          </CardBody>
-        </Card>
-
         {/* Video Games List */}
+        <Heading size="md" mb={4}>
+          Total Time by Game
+        </Heading>
         {gameData.length > 0 && (
-          <SimpleGrid columns={{ base: 1, md: 2 }} spacing={{ base: 0, md: 6 }}>
+          <SimpleGrid
+            columns={{ base: 1, md: 2 }}
+            spacing={{ base: 0, md: 6 }}
+            mb={4}
+          >
             <GameDataTable
               data={gameData.slice(0, Math.ceil(gameData.length / 2))}
               showHeader={true}
@@ -443,14 +514,6 @@ const TimeTrackingDashboard = () => {
           </SimpleGrid>
         )}
       </Container>
-
-      {
-        /* Color Scheme Switcher */
-        <ColorSchemeSwitcher
-          currentScheme={currentColorScheme}
-          onSchemeChange={setCurrentColorScheme}
-        />
-      }
     </>
   );
 };

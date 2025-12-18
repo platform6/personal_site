@@ -3,7 +3,7 @@ import { Card, CardHeader, CardBody, Heading, Box } from '@chakra-ui/react';
 
 const ChartCard = ({ title, children }) => {
   return (
-    <Card boxShadow={'2xl'}>
+    <Card boxShadow="dark-lg">
       <CardHeader>
         <Heading size={{ base: 'sm', md: 'md' }}>{title}</Heading>
       </CardHeader>

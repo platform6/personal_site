@@ -63,6 +63,7 @@ const PlatformPieChart = ({ data, barColors }) => {
             ]}
           />
           <Legend
+            itemSorter={(entry) => -entry.payload.hours}
             layout={legendLayout}
             align={legendAlign}
             verticalAlign={legendVerticalAlign}

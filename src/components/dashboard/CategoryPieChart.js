@@ -36,14 +36,30 @@ const CategoryBarChart = ({ data, barColors }) => {
   const legendPaddingLeft = useBreakpointValue({ base: '0px', md: '20px' });
   const legendLineHeight = useBreakpointValue({ base: '24px', md: '50px' });
 
+  // Create a color map for consistent color assignment
+  const colorMap = {};
+  sortedData.forEach((item, index) => {
+    colorMap[item.name] = barColors[index % barColors.length];
+  });
+
   // Create custom legend payload sorted by hours in descending order
-  const legendPayload = sortedData.map((item, index) => ({
+  const legendPayload = sortedData.map((item) => ({
     value: item.name,
     type: 'circle',
     id: item.name,
-    color: barColors[index % barColors.length],
+    color: colorMap[item.name],
     payload: item,
   }));
+
+  // Debug: Log the sorted data to verify order
+  console.log(
+    'CategoryBarChart - sortedData:',
+    sortedData.map((d) => ({ name: d.name, hours: d.hours }))
+  );
+  console.log(
+    'CategoryBarChart - legendPayload:',
+    legendPayload.map((d) => ({ name: d.value, hours: d.payload.hours }))
+  );
 
   return (
     <Box
@@ -70,11 +86,8 @@ const CategoryBarChart = ({ data, barColors }) => {
             paddingAngle={5}
             label={false}
           >
-            {sortedData.map((_entry, index) => (
-              <Cell
-                key={`cell-${index}`}
-                fill={barColors[index % barColors.length]}
-              />
+            {sortedData.map((entry, index) => (
+              <Cell key={`cell-${index}`} fill={colorMap[entry.name]} />
             ))}
           </Pie>
           <Tooltip
@@ -86,6 +99,7 @@ const CategoryBarChart = ({ data, barColors }) => {
           {
             <Legend
               payload={legendPayload}
+              itemSorter={(entry) => -entry.payload.hours}
               layout={legendLayout}
               align={legendAlign}
               verticalAlign={legendVerticalAlign}
