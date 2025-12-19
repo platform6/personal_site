@@ -27,12 +27,12 @@ import TimelineAreaChart from '../components/dashboard/TimelineAreaChart';
 import GameBarChart from '../components/dashboard/GameBarChart';
 import PlatformPieChart from '../components/dashboard/PlatformPieChart';
 import GameDataTable from '../components/dashboard/GameDataTable';
+import IntroText from '../components/dashboard/IntroText';
 import {
   formatHoursToTime,
   formatHoursToStructured,
 } from '../utils/timeFormatting';
 import compGames from '../data/2025_comp_games.json';
-import introText from '../data/dash_intro.json';
 
 const TimeTrackingDashboard = () => {
   const [loading, setLoading] = useState(true);
@@ -306,7 +306,7 @@ const TimeTrackingDashboard = () => {
   return (
     <>
       <MetaTags
-        title="Garrett Conn | Time Tracking Dashboard"
+        title="Garrett Conn | Time Tracking Dashboard 2025"
         description="Time tracking analytics and insights"
         keywords="time tracking, productivity, analytics"
         url="https://garrettconn.com/time-tracking"
@@ -319,18 +319,16 @@ const TimeTrackingDashboard = () => {
       >
         <Heading
           align="center"
-          mx={{ base: 2, md: 8 }}
-          my={{ base: 6, md: 8 }}
-          color="blackBean.700"
+          bg="brand.primary"
+          color="white"
           fontSize={{ base: '2xl', md: '3xl', lg: '4xl' }}
+          padding={{ base: 5, md: 30 }}
         >
           Hobby Time - 2025
         </Heading>
         <Card boxShadow={'dark-lg'} mb={4}>
           <CardHeader>
-            <Heading size={{ base: 'sm', md: 'md' }} align="center">
-              Why all this then?
-            </Heading>
+            <Heading size={{ base: 'sm', md: 'md' }} align="center"></Heading>
           </CardHeader>
           <CardBody
             mx={{ base: '5', md: '20' }}
@@ -350,7 +348,7 @@ const TimeTrackingDashboard = () => {
               },
             }}
           >
-            <Text whiteSpace="pre-wrap">{introText.text}</Text>
+            <IntroText></IntroText>
           </CardBody>
         </Card>
 
