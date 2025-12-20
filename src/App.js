@@ -11,6 +11,7 @@ const Elden = lazy(() => import('./pages/Elden'));
 const HomePage = lazy(() => import('./pages/HomePage'));
 const AboutMe = lazy(() => import('./pages/AboutMe'));
 const GameList = lazy(() => import('./pages/GameList'));
+const Games2025 = lazy(() => import('./pages/Games2025'));
 const TimeTrackingDashboard = lazy(
   () => import('./pages/TimeTrackingDashboard')
 );
@@ -31,6 +32,7 @@ function App() {
                 path="/time-tracking"
                 element={<TimeTrackingDashboard />}
               />
+              <Route path="/completed-games-2025" element={<Games2025 />} />
               <Route path="/test" element={<TestSupabasePage />} />
               <Route path="/admin" element={<AdminPage />} />
             </Routes>
