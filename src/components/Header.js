@@ -1,7 +1,7 @@
 // src/components/Header.js
-import React from 'react';
 import { Box, Flex, Heading } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
+import ColorModeToggle from './ColorModeToggle';
 
 const Header = () => (
   <Box bg="brand.primary" p={4} py={{ base: 6, md: 4 }}>
@@ -11,6 +11,7 @@ const Header = () => (
           Garrett Conn
         </Heading>
       </Link>
+      <ColorModeToggle />
     </Flex>
   </Box>
 );

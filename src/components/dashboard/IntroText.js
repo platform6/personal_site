@@ -1,83 +1,26 @@
-import { useState, useEffect } from 'react';
 import { Text, Box, SimpleGrid } from '@chakra-ui/react';
 import AnimatedHeader from './AnimatedHeader';
+import useMarkdownContent from '../../hooks/useMarkdownContent';
+import { parseIntroTextSections } from '../../utils/markdownParser';
 
 const IntroText = () => {
-  const [content, setContent] = useState('');
-
-  useEffect(() => {
-    fetch('/data/dashboard intro text.md')
-      .then((response) => response.text())
-      .then((text) => setContent(text))
-      .catch((error) => console.error('Error loading intro text:', error));
-  }, []);
+  const { content } = useMarkdownContent('/data/dashboard intro text.md');
 
   const parseContent = () => {
     if (!content) return null;
 
-    const gridItems = [];
-    const lines = content.split('\n');
-    let currentSection = [];
-    let currentParagraphs = [];
-    let key = 0;
+    const sections = parseIntroTextSections(content);
 
-    const finishSection = () => {
-      if (currentSection.length > 0) {
-        gridItems.push(
-          <Box key={key++}>
-            {currentSection.map((item, idx) => (
-              <Box key={idx}>{item}</Box>
-            ))}
-          </Box>
-        );
-        currentSection = [];
-      }
-    };
-
-    lines.forEach((line) => {
-      // Check for animated header (###)
-      if (line.trim().startsWith('###')) {
-        // Save any accumulated paragraph first
-        if (currentParagraphs.length > 0) {
-          currentSection.push(
-            <Text fontSize="sm" px={1} mb={3}>
-              {currentParagraphs.join('\n')}
-            </Text>
-          );
-          currentParagraphs = [];
-        }
-        // Finish previous section before starting new one with header
-        finishSection();
-        // Add animated header to new section
-        const headerText = line.replace(/^###\s*/, '').trim();
-        currentSection.push(<AnimatedHeader data={headerText} />);
-      } else if (line.trim() === '') {
-        // Empty line - end current paragraph if it exists
-        if (currentParagraphs.length > 0) {
-          currentSection.push(
-            <Text fontSize="sm" px={1} mb={3}>
-              {currentParagraphs.join('\n')}
-            </Text>
-          );
-          currentParagraphs = [];
-        }
-      } else {
-        // Regular text line - add to current paragraph
-        currentParagraphs.push(line);
-      }
-    });
-
-    // Add any remaining paragraph
-    if (currentParagraphs.length > 0) {
-      currentSection.push(
-        <Text fontSize="sm" px={3} mb={3}>
-          {currentParagraphs.join('\n')}
-        </Text>
-      );
-    }
-
-    // Finish the last section
-    finishSection();
+    const gridItems = sections.map((section, key) => (
+      <Box key={key}>
+        {section.header && <AnimatedHeader data={section.header} />}
+        {section.paragraphs.map((paragraph, idx) => (
+          <Text key={idx} fontSize="sm" px={1} mb={3} whiteSpace="pre-line">
+            {paragraph}
+          </Text>
+        ))}
+      </Box>
+    ));
 
     return gridItems;
   };

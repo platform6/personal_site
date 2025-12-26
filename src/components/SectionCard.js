@@ -6,15 +6,15 @@ import DOMPurify from 'dompurify';
 const SectionCard = ({ link, heading, text, img, alt, external }) => {
   const sanitizedText = DOMPurify.sanitize(text);
   const cardContent = (
-    <Box bg="gray.100" p={{ base: 2, md: 6 }} borderRadius="md">
+    <Box bg="bg.subtle" p={{ base: 2, md: 6 }} borderRadius="md">
       <Flex flexDirection="row" height={'250px'}>
         <Box
-          bg="white"
           minW={90}
           mr={5}
           borderTopLeftRadius="md"
           borderBottomLeftRadius="md"
-          border={'1px solid grey'}
+          borderWidth="1px"
+          borderColor="border.default"
           my={{ base: -2, md: -6 }}
           ml={{ base: -2, md: -6 }}
           overflow={'hidden'}
@@ -30,11 +30,12 @@ const SectionCard = ({ link, heading, text, img, alt, external }) => {
           />
         </Box>
         <Flex flexDirection="column">
-          <Heading size="sm" py="5">
+          <Heading size="sm" py="5" color="text.primary">
             {heading}
           </Heading>
           <Text
             fontSize={{ base: 'sm', md: 'md' }}
+            color="text.secondary"
             dangerouslySetInnerHTML={{ __html: sanitizedText }}
           />
         </Flex>
