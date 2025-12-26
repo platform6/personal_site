@@ -31,7 +31,7 @@ const PlatformPieChart = ({ data, barColors }) => {
       justifyContent="center"
       sx={{
         '& .recharts-legend-item-text': {
-          color: 'black !important',
+          color: 'text.primary !important',
         },
       }}
     >

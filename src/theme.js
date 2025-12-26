@@ -2,15 +2,19 @@
 import { extendTheme } from '@chakra-ui/react';
 
 const theme = extendTheme({
+  config: {
+    initialColorMode: 'light',
+    useSystemColorMode: false,
+  },
   fonts: {
     heading: `'Space Grotesk', sans-serif`,
     body: `'Inter', sans-serif`,
   },
   styles: {
-    global: {
+    global: (props) => ({
       body: {
-        bg: 'white', // Default background
-        color: 'black', // Default text color
+        bg: props.colorMode === 'dark' ? 'gray.900' : 'white',
+        color: props.colorMode === 'dark' ? 'white' : 'black',
         margin: 0,
         WebkitFontSmoothing: 'antialiased',
         MozOsxFontSmoothing: 'grayscale',
@@ -23,6 +27,42 @@ const theme = extendTheme({
       },
       code: {
         fontFamily: `source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace`,
+      },
+    }),
+  },
+  semanticTokens: {
+    colors: {
+      'bg.canvas': {
+        default: 'white',
+        _dark: 'gray.900',
+      },
+      'bg.surface': {
+        default: 'white',
+        _dark: 'gray.800',
+      },
+      'bg.subtle': {
+        default: 'gray.50',
+        _dark: 'gray.700',
+      },
+      'text.primary': {
+        default: 'black',
+        _dark: 'white',
+      },
+      'text.secondary': {
+        default: 'gray.600',
+        _dark: 'gray.400',
+      },
+      'text.tertiary': {
+        default: 'gray.500',
+        _dark: 'gray.500',
+      },
+      'border.default': {
+        default: 'gray.200',
+        _dark: 'gray.600',
+      },
+      'border.subtle': {
+        default: 'gray.100',
+        _dark: 'gray.700',
       },
     },
   },

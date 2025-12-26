@@ -12,9 +12,9 @@ I used an app to track what I was doing when I had a stretch of time that I expe
 
 The general rule I followed was to start the timer when I expected myself to concentrate fully on one of these categories, so time playing a game with family - or futzing on my phone (game or not) were not included.
 
-At the start it seemed pretty rare that I had a solid chunk of uninterupted time with work, family, and other general life tasks. Tracking all this gives me an idea of the actual time I have on my hands.
+At the start it seemed pretty rare that I had a solid chunk of uninterupted time with work, family, and other general life tasks. Tracking all this gives me an idea of the actual time I have on my hands. It was fun putting this all together.
 
-### Was the experiment a sucess?
+### The Cold Hard Eye of Retrospect
 
 Most of this time was tracked while on a bus commuting back and forth to Boston. This is my main time now that I have to spend as I wish. However, there is some complications that arise from this - the bus is shaky, it can be cramped. I don't know exactly how much was bus dungeon time, as I didn't think to add a 'commuting' tag or anything like that. I will consider that for the new year.
 
@@ -26,7 +26,7 @@ Around 100 hours this year, or 4 days were spent on game dev, art, or otherwise 
 
 So, I didn't really hit the goal - but I'm glad at least I had a reminder throughout the year to diversify my focus.
 
-### What's next?
+### To The New Year
 
 I can look at these numbers and feel guilty that I’ve spent about 20 days this past year playing video games. 20 days - that’s a lot! But, I really don’t, it’s what I enjoy doing.
 

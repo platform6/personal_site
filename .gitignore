@@ -29,3 +29,7 @@ node_modules
 
 #local notes
 notes.md
+public/data/.obsidian/app.json
+public/data/.obsidian/appearance.json
+public/data/.obsidian/core-plugins.json
+public/data/.obsidian/workspace.json

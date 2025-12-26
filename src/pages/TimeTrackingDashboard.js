@@ -10,6 +10,7 @@ import {
   Spinner,
   useToast,
   useBreakpointValue,
+  useColorModeValue,
   Flex,
   Stack,
   StackDivider,
@@ -33,6 +34,7 @@ import {
   formatHoursToStructured,
 } from '../utils/timeFormatting';
 import compGames from '../data/2025_comp_games.json';
+import CompletedGames2025 from '../components/dashboard/CompletedGames2025';
 
 const TimeTrackingDashboard = () => {
   const [loading, setLoading] = useState(true);
@@ -46,6 +48,13 @@ const TimeTrackingDashboard = () => {
   const [professionalDevData, setProfessionalDevData] = useState([]);
   const toast = useToast();
   const completedGamesColumns = useBreakpointValue({ base: 1, md: 3 });
+
+  // Color mode values
+  const cardBg = useColorModeValue('white', 'gray.800');
+  const spinnerColor = useColorModeValue(
+    'hookersGreen.500',
+    'hookersGreen.300'
+  );
 
   // Original color scheme
   const colors = {
@@ -70,7 +79,7 @@ const TimeTrackingDashboard = () => {
   const renderPieChartCard = (title, data) => {
     if (data.length === 0) return null;
     return (
-      <Card boxShadow="dark-lg">
+      <Card boxShadow="dark-lg" bg={cardBg}>
         <CardHeader>
           <Heading size={{ base: 'sm', md: 'md' }} align="center">
             {title}
@@ -298,7 +307,7 @@ const TimeTrackingDashboard = () => {
         alignItems="center"
         minH="50vh"
       >
-        <Spinner size="xl" color="hookersGreen.500" thickness="4px" />
+        <Spinner size="xl" color={spinnerColor} thickness="4px" />
       </Box>
     );
   }
@@ -326,7 +335,7 @@ const TimeTrackingDashboard = () => {
         >
           Hobby Time - 2025
         </Heading>
-        <Card boxShadow={'dark-lg'} mb={4}>
+        <Card boxShadow={'dark-lg'} mb={4} bg={cardBg}>
           <CardHeader>
             <Heading size={{ base: 'sm', md: 'md' }} align="center"></Heading>
           </CardHeader>
@@ -351,14 +360,15 @@ const TimeTrackingDashboard = () => {
             <IntroText></IntroText>
           </CardBody>
         </Card>
-
+        {/* Completed Games Section */}
+        <CompletedGames2025 />
         {/* Summary Cards */}
         <SimpleGrid
           columns={{ base: 1, md: 2 }}
           spacing={{ base: 4, md: 4 }}
           mb={8}
         >
-          <Card boxShadow={'dark-lg'}>
+          <Card boxShadow={'dark-lg'} bg={cardBg}>
             <CardHeader>
               <Heading size={{ base: 'sm', md: 'md' }} align="center">
                 Hobbies
@@ -424,7 +434,7 @@ const TimeTrackingDashboard = () => {
               },
             ]}
           />
-          <Card boxShadow="dark-lg">
+          <Card boxShadow="dark-lg" bg={cardBg}>
             <CardHeader>
               <Heading size="md">Completed Games</Heading>
             </CardHeader>
@@ -462,7 +472,6 @@ const TimeTrackingDashboard = () => {
             <CategoryPieChart data={projectData} barColors={colors.barColors} />
           </ChartCard>
         </SimpleGrid>
-
         {/* Charts */}
         <SimpleGrid
           columns={{ base: 1, md: 2 }}
@@ -490,7 +499,6 @@ const TimeTrackingDashboard = () => {
           {renderPieChartCard('Art/Drawing', artDrawingData)}
           {renderPieChartCard('Coding', professionalDevData)}
         </SimpleGrid>
-
         {/* Video Games List */}
         <Heading size="md" mb={4}>
           Total Time by Game
