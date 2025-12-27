@@ -1,13 +1,13 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import {
   Box,
   Heading,
   Text,
   Flex,
   VStack,
-  HStack,
   Image,
   useColorModeValue,
+  useBreakpointValue,
   Spinner,
 } from '@chakra-ui/react';
 import { ChevronLeftIcon, ChevronRightIcon } from '@chakra-ui/icons';
@@ -17,7 +17,8 @@ import { parseGameSection } from '../../utils/markdownParser';
 const CompletedGames2025 = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [selectedGameIndex, setSelectedGameIndex] = useState(0);
-  const cardsPerView = 3; // Number of cards visible at once
+  const isMobile = useBreakpointValue({ base: true, md: false });
+  const cardsPerView = useBreakpointValue({ base: 1, md: 3 });
   const cardWidth = 350;
   const gapWidth = 16;
   const scrollOffset = cardWidth + gapWidth; // 366px
@@ -46,7 +47,6 @@ const CompletedGames2025 = () => {
   // Color mode values
   const cardBg = useColorModeValue('white', 'gray.800');
   const subtleBg = useColorModeValue('gray.50', 'gray.700');
-  const textSecondary = useColorModeValue('gray.600', 'gray.400');
   const textTertiary = useColorModeValue('gray.500', 'gray.500');
   const borderColor = useColorModeValue('gray.200', 'gray.600');
   const imagePlaceholderBg = useColorModeValue('gray.200', 'gray.600');
@@ -60,6 +60,13 @@ const CompletedGames2025 = () => {
   );
   const iconColor = useColorModeValue('gray.700', 'gray.300');
 
+  // Sync selected game with visible carousel position in mobile view
+  useEffect(() => {
+    if (isMobile) {
+      setSelectedGameIndex(currentIndex);
+    }
+  }, [currentIndex, isMobile]);
+
   const handlePrevious = () => {
     setCurrentIndex((prev) => Math.max(0, prev - 1));
   };
@@ -68,6 +75,21 @@ const CompletedGames2025 = () => {
     setCurrentIndex((prev) =>
       Math.min(gamesData.length - cardsPerView, prev + 1)
     );
+  };
+
+  // When a card is clicked on desktop, ensure it's visible in the carousel
+  const handleCardClick = (index) => {
+    setSelectedGameIndex(index);
+    if (!isMobile) {
+      // Adjust carousel position to show the selected card if it's out of view
+      if (index < currentIndex) {
+        setCurrentIndex(index);
+      } else if (index >= currentIndex + cardsPerView) {
+        setCurrentIndex(
+          Math.min(index - cardsPerView + 1, gamesData.length - cardsPerView)
+        );
+      }
+    }
   };
 
   const selectedGame = gamesData[selectedGameIndex];
@@ -90,18 +112,18 @@ const CompletedGames2025 = () => {
   }
 
   return (
-    <Box py={8} px={{ base: 4, md: 0 }}>
-      <VStack spacing={8} align="stretch">
+    <Box py={{ base: 4, md: 8 }} px={{ base: 4, md: 0 }}>
+      <VStack spacing={{ base: 4, md: 8 }} align="stretch">
         <Heading size="2xl" textAlign="center">
-          Things I Did This Year
+          {gamesData.length} games completed
         </Heading>
-
-        <Text textAlign="center" fontSize="lg" color={textSecondary}>
-          {gamesData.length} games completed!
-        </Text>
-
         {/* Carousel Container */}
-        <Box position="relative" py={8} display="flex" justifyContent="center">
+        <Box
+          position="relative"
+          py={{ base: 0, md: 8 }}
+          display="flex"
+          justifyContent="center"
+        >
           {/* Game Cards Container */}
           <Box overflow="hidden" width="1082px" maxW="100%" position="relative">
             <Flex
@@ -120,9 +142,9 @@ const CompletedGames2025 = () => {
                   bg={cardBg}
                   transition="all 0.3s"
                   cursor="pointer"
-                  onClick={() => setSelectedGameIndex(index)}
+                  onClick={() => handleCardClick(index)}
                   borderColor={
-                    selectedGameIndex === index ? 'brand.primary' : borderColor
+                    selectedGameIndex === index ? borderColor : borderColor
                   }
                   borderWidth={selectedGameIndex === index ? '3px' : '1px'}
                   _hover={{ transform: 'translateY(-4px)', boxShadow: '2xl' }}
@@ -161,7 +183,7 @@ const CompletedGames2025 = () => {
                       <Text
                         textAlign="center"
                         color={textTertiary}
-                        fontSize="sm"
+                        fontSize="lg"
                       >
                         Completed: {game.completedDate}
                       </Text>
@@ -233,38 +255,13 @@ const CompletedGames2025 = () => {
           </Box>
         </Box>
 
-        {/* Progress Indicator */}
-        <HStack justify="center" spacing={2}>
-          {Array.from({
-            length: Math.ceil(gamesData.length / cardsPerView),
-          }).map((_, index) => (
-            <Box
-              key={index}
-              w={currentIndex === index ? '12px' : '8px'}
-              h={currentIndex === index ? '12px' : '8px'}
-              borderRadius="full"
-              bg={currentIndex === index ? 'brand.primary' : 'gray.300'}
-              transition="all 0.3s"
-              cursor="pointer"
-              onClick={() =>
-                setCurrentIndex(
-                  Math.min(index, gamesData.length - cardsPerView)
-                )
-              }
-              _hover={{
-                bg: currentIndex === index ? 'brand.primary' : 'gray.400',
-              }}
-            />
-          ))}
-        </HStack>
-
         {/* Write-up Section - Below Carousel */}
         <Box
           p={6}
           bg={cardBg}
           borderRadius="lg"
           borderWidth="1px"
-          borderColor="brand.primary"
+          borderColor="gray.700"
           boxShadow="lg"
           minH="200px"
         >
@@ -274,7 +271,7 @@ const CompletedGames2025 = () => {
             </Heading>
 
             {selectedGame.completedDate && (
-              <Text textAlign="center" color={textTertiary} fontSize="md">
+              <Text textAlign="center" color={textTertiary} fontSize="sm">
                 Completed: {selectedGame.completedDate}
               </Text>
             )}
@@ -290,7 +287,7 @@ const CompletedGames2025 = () => {
                 <Text
                   key={idx}
                   lineHeight="tall"
-                  fontSize="md"
+                  fontSize="sm"
                   mb={idx < selectedGame.paragraphs.length - 1 ? 4 : 0}
                 >
                   {paragraph}
