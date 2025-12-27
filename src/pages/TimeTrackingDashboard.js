@@ -9,11 +9,8 @@ import {
   CardBody,
   Spinner,
   useToast,
-  useBreakpointValue,
   useColorModeValue,
   Flex,
-  Stack,
-  StackDivider,
   Text,
 } from '@chakra-ui/react';
 import {
@@ -35,6 +32,7 @@ import {
 } from '../utils/timeFormatting';
 import compGames from '../data/2025_comp_games.json';
 import CompletedGames2025 from '../components/dashboard/CompletedGames2025';
+import LongestSessionCard from '../components/dashboard/LongestSessionCard';
 
 const TimeTrackingDashboard = () => {
   const [loading, setLoading] = useState(true);
@@ -46,8 +44,8 @@ const TimeTrackingDashboard = () => {
   const [gameDevData, setGameDevData] = useState([]);
   const [artDrawingData, setArtDrawingData] = useState([]);
   const [professionalDevData, setProfessionalDevData] = useState([]);
+  const [longestSessions, setLongestSessions] = useState(null);
   const toast = useToast();
-  const completedGamesColumns = useBreakpointValue({ base: 1, md: 3 });
 
   // Color mode values
   const cardBg = useColorModeValue('white', 'gray.800');
@@ -297,6 +295,65 @@ const TimeTrackingDashboard = () => {
       .sort((a, b) => b.hours - a.hours);
 
     setProfessionalDevData(professionalDevChartData);
+
+    // Calculate longest sessions
+    let longestGaming = null;
+    let longestGameDev = null;
+    const dailyHours = {};
+
+    entriesData.forEach((entry) => {
+      const hours = entry.duration_seconds / 3600;
+      const project = entry.project || '';
+      const task = entry.task || 'Unknown';
+      const date = entry.start_date;
+
+      // Find longest gaming session
+      if (project === 'Playing Video Games') {
+        if (!longestGaming || hours > longestGaming.hours) {
+          longestGaming = {
+            name: task,
+            hours: parseFloat(hours.toFixed(2)),
+            date: date,
+          };
+        }
+      }
+
+      // Find longest game dev session
+      if (project === 'Game Dev') {
+        if (!longestGameDev || hours > longestGameDev.hours) {
+          longestGameDev = {
+            name: task,
+            hours: parseFloat(hours.toFixed(2)),
+            date: date,
+          };
+        }
+      }
+
+      // Aggregate hours by day for most productive day
+      const dayKey = date.split('T')[0];
+      if (!dailyHours[dayKey]) {
+        dailyHours[dayKey] = 0;
+      }
+      dailyHours[dayKey] += hours;
+    });
+
+    // Find most productive day
+    let mostProductiveDay = null;
+    Object.entries(dailyHours).forEach(([date, hours]) => {
+      if (!mostProductiveDay || hours > mostProductiveDay.hours) {
+        mostProductiveDay = {
+          name: 'Total Hobby Time',
+          hours: parseFloat(hours.toFixed(2)),
+          date: date,
+        };
+      }
+    });
+
+    setLongestSessions({
+      gaming: longestGaming,
+      gameDev: longestGameDev,
+      mostProductiveDay: mostProductiveDay,
+    });
   };
 
   if (loading) {
@@ -323,7 +380,7 @@ const TimeTrackingDashboard = () => {
       <Container
         maxW="container.xl"
         px={{ base: 4, md: 6 }}
-        py={{ base: 4, md: 6 }}
+        py={{ base: 0, md: 6 }}
         width={{ base: '100%', md: '90vw' }}
       >
         <Heading
@@ -434,7 +491,7 @@ const TimeTrackingDashboard = () => {
               },
             ]}
           />
-          <Card boxShadow="dark-lg" bg={cardBg}>
+          {/* <Card boxShadow="dark-lg" bg={cardBg}>
             <CardHeader>
               <Heading size="md">Completed Games</Heading>
             </CardHeader>
@@ -464,13 +521,14 @@ const TimeTrackingDashboard = () => {
                     </CardBody>
                   );
                 });
-              })()}
-            </SimpleGrid>
-            {/* Project Hours Chart */}
-          </Card>
+              })()} */}
+          {/* </SimpleGrid> */}
+          {/* Project Hours Chart */}
+          {/* </Card> */}
           <ChartCard title="Total Time by Category">
             <CategoryPieChart data={projectData} barColors={colors.barColors} />
           </ChartCard>
+          <LongestSessionCard longestSessions={longestSessions} />
         </SimpleGrid>
         {/* Charts */}
         <SimpleGrid

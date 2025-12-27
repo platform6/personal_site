@@ -2,7 +2,7 @@
 
 Time wise, I finished this game a year ago as of this writing.  Memory is a funny thing, in that I think about the story quite frequently but sitting here I don’t really remember the details - like this happened first and then this.  My brain does not struggle to conjure the feeling of this game though.  I think about certain plot events frequently and feel like this game entangles itself so much with the sweeping essence of being a counscious thing with a past and a family and a uncertain future.
 
-To jog my memory I looked up a walkthrough on YouTube just now. At random, hitting a piece of dialog.  “What’s fair and what’s true - what’s more important?”  This give the sense at what the story is trying to get at.  Over and over it’s got absolute banger lines like this.  
+To jog my memory I looked up a walkthrough on YouTube just now. At random, hitting a piece of dialog.  “What’s fair and what’s true - what’s more important?”  This give the sense at what the story is trying to get at.  Over and over it’s got absolute banger lines like this.
 
 The moment in the game where the main character is talking to their mom in the stairwell really got me.
 
